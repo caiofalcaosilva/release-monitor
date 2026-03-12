@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  wa-release-monitor:
+    build: .
+    container_name: wa-release-monitor
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./data:/app/data
