@@ -1,6 +1,0 @@
-__pycache__/
-*.pyc
-.env
-state.json
-.n8n/
-.venv/
