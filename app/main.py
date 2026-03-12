@@ -43,7 +43,7 @@ def main():
     validate_google_webhook()
     setup_logging()
 
-    logging.info("Starting WA-JS release monitor...")
+    logging.info("Starting Release Monitor...")
     logging.info(f"Checking interval: {INTERVAL_MINUTES} minutes")
 
     # Graceful shutdown (Docker friendly)

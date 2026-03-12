@@ -2,8 +2,8 @@
 # Project Config
 # ==============================
 
-PROJECT_NAME=github-release-monitor
-SERVICE_NAME=github-release-monitor
+PROJECT_NAME=release-monitor
+SERVICE_NAME=release-monitor
 
 COMPOSE=docker compose
 
