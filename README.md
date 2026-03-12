@@ -5,60 +5,51 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 
 Lightweight Python service that monitors repositories for new releases and sends notifications to Google Chat.
-It automatically checks repositories for new versions and notifies your team in real time.
+
+It periodically checks repositories for new versions and sends structured notifications when a new release is detected.
 
 ## Features
 
 * Monitor **multiple repositories**
 * Automatic **release detection**
-* Notifications sent to **Google Chat**
+* Notifications sent to Google Chat
 * Configurable **check interval**
-* Support for **timezone configuration**
-* Avoids duplicate notifications using a persistent state file
-* Retry logic for reliability
-* Containerized with **Docker**
+* Timezone support
+* Avoid duplicate notifications using a persistent state file
+* Containerized with Docker
+* Simple commands using **Makefile**
 
-## How It Works
+---
 
-The service periodically checks the API of a repository host for the latest release.
-If a new release is detected, it sends a structured notification to a Google Chat webhook with details such as:
+# How It Works
 
-* Repository
-* Version
+The service periodically queries the GitHub API to check the latest release of configured repositories.
+
+When a new release is detected, a notification is sent to Google Chat including:
+
+* Repository name
+* Version tag
 * Author
 * Release date
 * Number of assets
-* Direct link to the release
+* Link to the release
 
-## Example Notification
+---
 
-A notification sent to Google Chat includes:
+# Installation
 
-* 🚀 Release title
-* 📦 Repository name
-* 🏷 Version tag
-* 👤 Author
-* 📅 Release date
-* 🔗 Link to the release page
-
-## Installation
-
-### Clone the repository
+## Clone the repository
 
 ```bash
 git clone https://github.com/YOUR-USER/release-monitor.git
 cd release-monitor
 ```
 
-### Install dependencies
+---
 
-```bash
-pip install -r requirements.txt
-```
+# Configuration
 
-### Create environment variables
-
-Copy the example file:
+Create your environment file:
 
 ```bash
 cp .env.example .env
@@ -66,71 +57,98 @@ cp .env.example .env
 
 Edit `.env` with your configuration.
 
-## Environment Variables
-
-Example configuration:
+Example:
 
 ```
-GOOGLE_CHAT_WEBHOOK=https://chat.googleapis.com/...
-REPOS=owner/repo1,owner/repo2
+REPOS=owner/repository
 INTERVAL_MINUTES=5
-TIMEZONE=UTC
 IGNORE_PRERELEASE=true
+GOOGLE_CHAT_WEBHOOK=https://chat.googleapis.com/...
 STATE_FILE=/app/data/state.json
+TIMEZONE=UTC
 ```
 
-| Variable            | Description                                     |
-| ------------------- | ----------------------------------------------- |
-| GOOGLE_CHAT_WEBHOOK | Google Chat webhook URL                         |
-| REPOS               | Comma-separated list of repositories to monitor |
-| INTERVAL_MINUTES    | How often to check for new releases             |
-| TIMEZONE            | Timezone used for release timestamps            |
-| IGNORE_PRERELEASE   | Ignore pre-release versions                     |
-| STATE_FILE          | File used to store last processed releases      |
+---
 
-## Running with Python
-
-```bash
-python -m app.main
-```
-
-## Running with Docker
+# Running with Docker
 
 Build the image:
 
 ```bash
-docker build -t release-monitor .
+make build
 ```
 
-Run the container:
+Start the service:
 
 ```bash
-docker run --env-file .env release-monitor
+make up
 ```
 
-## Running with Docker Compose
+Stop the service:
 
 ```bash
-docker compose up -d
+make down
 ```
 
-Example `docker-compose.yml`:
+Restart the service:
 
-```
-version: "3.8"
-
-services:
-  release-monitor:
-    build: .
-    container_name: release-monitor
-    env_file:
-      - .env
-    restart: unless-stopped
-    volumes:
-      - ./data:/app/data
+```bash
+make restart
 ```
 
-## Project Structure
+View logs:
+
+```bash
+make logs
+```
+
+Check running containers:
+
+```bash
+make ps
+```
+
+Rebuild and restart:
+
+```bash
+make rebuild
+```
+
+---
+
+# Running Locally (Python)
+
+Install dependencies:
+
+```bash
+make install
+```
+
+Run the application:
+
+```bash
+make dev
+```
+
+---
+
+# Maintenance
+
+Clean containers and volumes:
+
+```bash
+make clean
+```
+
+Prune unused Docker resources:
+
+```bash
+make prune
+```
+
+---
+
+# Project Structure
 
 ```
 release-monitor
@@ -145,12 +163,15 @@ release-monitor
 │
 ├── Dockerfile
 ├── docker-compose.yml
+├── Makefile
 ├── requirements.txt
 ├── .env.example
 ├── README.md
 └── LICENSE
 ```
 
-## License
+---
+
+# License
 
 This project is licensed under the MIT License.
