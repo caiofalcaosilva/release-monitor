@@ -28,14 +28,15 @@ restart: down up
 
 .PHONY: logs
 logs:
-	$(COMPOSE) logs -f
+	$(COMPOSE) logs -f $(SERVICE_NAME)
 
 .PHONY: ps
 ps:
-	$(COMPOSE) ps
+	$(COMPOSE) ps $(SERVICE_NAME)
 
 .PHONY: rebuild
-rebuild: down build up
+rebuild:
+	$(COMPOSE) up -d --build
 
 # ==============================
 # Development (Local Python)
@@ -47,7 +48,7 @@ install:
 
 .PHONY: dev
 dev:
-	python app/main.py
+	python -m app.main
 
 # ==============================
 # Maintenance
@@ -55,7 +56,7 @@ dev:
 
 .PHONY: clean
 clean:
-	$(COMPOSE) down --rmi all --volumes --remove-orphans
+	$(COMPOSE) down --volumes --remove-orphans
 
 .PHONY: prune
 prune:
@@ -83,5 +84,5 @@ help:
 	@echo "  make dev       - Run app locally"
 	@echo ""
 	@echo "Maintenance:"
-	@echo "  make clean     - Remove containers, images and volumes"
+	@echo "  make clean     - Remove containers and volumes"
 	@echo "  make prune     - Docker system prune"
