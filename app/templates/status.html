@@ -23,40 +23,38 @@
       border-radius: 20px;
       box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.05);
       width: 100%;
-      max-width: 680px;
+      max-width: 700px;
       overflow: hidden;
     }
 
     /* ── Header ── */
     .header {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
-      padding: 28px 32px;
+      padding: 24px 28px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
-    .header-icon { width: 44px; height: 44px; flex-shrink: 0; }
-    .header-text { flex: 1; }
-    .header h1 { font-size: 20px; font-weight: 700; color: #f8fafc; letter-spacing: -0.3px; }
-    .header p  { font-size: 13px; color: #94a3b8; margin-top: 3px; }
+    .header-icon { width: 40px; height: 40px; flex-shrink: 0; }
+    .header-text { flex: 1; min-width: 0; }
+    .header h1 { font-size: 18px; font-weight: 700; color: #f8fafc; letter-spacing: -0.3px; }
+    .header p  { font-size: 12px; color: #94a3b8; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
+    .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+    /* ── Running badge ── */
     .running-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
+      display: inline-flex; align-items: center; gap: 7px;
       background: rgba(34,197,94,0.12);
       color: #86efac;
       border: 1px solid rgba(34,197,94,0.25);
       border-radius: 20px;
       padding: 5px 13px;
-      font-size: 12px;
-      font-weight: 600;
-      white-space: nowrap;
+      font-size: 12px; font-weight: 600; white-space: nowrap;
     }
     .pulse-dot {
       width: 7px; height: 7px;
-      background: #22c55e;
-      border-radius: 50%;
+      background: #22c55e; border-radius: 50%;
       animation: pulse 2s ease-in-out infinite;
     }
     @keyframes pulse {
@@ -64,104 +62,79 @@
       50%       { opacity: 0.4; transform: scale(0.85); }
     }
 
+    /* ── Lang switcher ── */
+    .lang-switcher { display: flex; gap: 3px; }
+    .lang-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #64748b; border-radius: 5px;
+      padding: 4px 9px; font-size: 11px; font-weight: 600;
+      cursor: pointer; font-family: inherit; letter-spacing: 0.05em;
+      transition: all 0.15s;
+    }
+    .lang-btn:hover  { background: rgba(255,255,255,0.15); color: #cbd5e1; }
+    .lang-btn.active { background: rgba(255,255,255,0.18); color: #f1f5f9; border-color: rgba(255,255,255,0.3); }
+
     /* ── Body ── */
-    .body { padding: 28px 32px 0; }
+    .body { padding: 24px 28px 0; }
 
     /* ── Toolbar ── */
     .toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 18px; gap: 10px;
     }
     .last-updated { font-size: 12px; color: #94a3b8; }
     .refresh-btn {
-      background: none;
-      border: 1.5px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 5px 13px;
-      font-size: 12px;
-      font-weight: 500;
-      color: #64748b;
-      cursor: pointer;
-      font-family: inherit;
-      transition: all 0.15s;
+      background: none; border: 1.5px solid #e2e8f0; border-radius: 8px;
+      padding: 5px 13px; font-size: 12px; font-weight: 500; color: #64748b;
+      cursor: pointer; font-family: inherit; transition: all 0.15s;
     }
     .refresh-btn:hover { border-color: #cbd5e1; color: #334155; background: #f8fafc; }
 
     /* ── Section ── */
-    .section { margin-bottom: 24px; }
+    .section { margin-bottom: 22px; }
     .section-label {
-      font-size: 10.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #94a3b8;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #f1f5f9;
-      display: flex;
-      align-items: center;
-      gap: 7px;
+      font-size: 10.5px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: #94a3b8; margin-bottom: 12px;
+      padding-bottom: 9px; border-bottom: 1px solid #f1f5f9;
+      display: flex; align-items: center; gap: 7px;
     }
-    .section-label span { font-size: 14px; }
+    .section-label span { font-size: 13px; }
 
     /* ── Repo cards ── */
     .repos-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 12px;
     }
     .repo-card {
-      border: 1.5px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 18px 18px 14px;
+      border: 1.5px solid #e2e8f0; border-radius: 12px;
+      padding: 16px 16px 14px;
       transition: border-color 0.15s, box-shadow 0.15s;
+      position: relative; overflow: hidden;
     }
-    .repo-card:hover { border-color: #cbd5e1; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    .repo-card:hover { border-color: #cbd5e1; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
 
     .repo-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-      gap: 8px;
+      display: flex; align-items: flex-start;
+      justify-content: space-between; margin-bottom: 10px; gap: 8px;
     }
+    .repo-name-wrap { min-width: 0; flex: 1; }
     .repo-name {
-      font-size: 13px;
-      font-weight: 700;
-      color: #0f172a;
+      font-size: 13px; font-weight: 700; color: #0f172a;
       font-family: ui-monospace, "SF Mono", monospace;
-      text-decoration: none;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      min-width: 0;
+      text-decoration: none; display: block;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .repo-name:hover { color: #1d4ed8; }
 
-    .release-tag {
-      display: inline-block;
-      background: #f0fdf4;
-      color: #15803d;
-      border: 1px solid #bbf7d0;
-      border-radius: 6px;
-      padding: 2px 9px;
-      font-size: 12px;
-      font-weight: 600;
-      font-family: ui-monospace, monospace;
-      text-decoration: none;
-      margin-bottom: 10px;
-    }
-    .release-tag:hover { background: #dcfce7; }
-
+    /* ── Source badge ── */
     .source-badge {
-      font-size: 9.5px;
-      font-weight: 700;
-      padding: 2px 6px;
-      border-radius: 4px;
-      white-space: nowrap;
-      flex-shrink: 0;
+      font-size: 9.5px; font-weight: 700;
+      padding: 2px 7px; border-radius: 4px;
+      white-space: nowrap; flex-shrink: 0;
+      margin-top: 1px;
     }
     .source-github { background: #f1f5f9; color: #475569; }
     .source-gitlab { background: #fdf2f8; color: #9333ea; }
@@ -169,33 +142,31 @@
     .source-docker { background: #e0f2fe; color: #0369a1; }
     .source-npm    { background: #fee2e2; color: #b91c1c; }
 
-    .meta-line {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 11.5px;
-      color: #94a3b8;
-      margin-top: 5px;
+    /* ── Release info ── */
+    .release-tag {
+      display: inline-block;
+      background: #f0fdf4; color: #15803d;
+      border: 1px solid #bbf7d0; border-radius: 6px;
+      padding: 3px 10px; font-size: 12px; font-weight: 600;
+      font-family: ui-monospace, monospace;
+      text-decoration: none; margin-bottom: 8px;
+      transition: background 0.15s;
     }
+    .release-tag:hover { background: #dcfce7; }
 
+    .meta-line {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 11.5px; color: #94a3b8; margin-top: 4px;
+    }
     .no-data {
-      font-size: 12px;
-      color: #cbd5e1;
-      font-style: italic;
+      font-size: 12px; color: #cbd5e1; font-style: italic;
     }
 
     /* ── Config panel ── */
-    .config-panel {
-      border: 1.5px solid #e2e8f0;
-      border-radius: 12px;
-      overflow: hidden;
-    }
+    .config-panel { border: 1.5px solid #e2e8f0; border-radius: 12px; overflow: hidden; }
     .config-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 11px 16px;
-      font-size: 13px;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 11px 16px; font-size: 13px;
       border-bottom: 1px solid #f1f5f9;
     }
     .config-row:last-child { border-bottom: none; }
@@ -203,19 +174,17 @@
     .config-val { color: #0f172a; font-weight: 600; font-family: ui-monospace, monospace; font-size: 12px; }
 
     /* ── Footer ── */
-    .card-footer {
-      padding: 16px 32px 24px;
-      text-align: center;
-    }
+    .card-footer { padding: 14px 28px 24px; text-align: center; }
     .configure-link {
-      font-size: 12px;
-      color: #94a3b8;
-      text-decoration: none;
-      transition: color 0.15s;
+      display: inline-block;
+      font-size: 12.5px; font-weight: 500;
+      color: #64748b; text-decoration: none;
+      border: 1.5px solid #e2e8f0; border-radius: 8px;
+      padding: 7px 18px; transition: all 0.15s;
     }
-    .configure-link:hover { color: #475569; }
+    .configure-link:hover { color: #334155; border-color: #cbd5e1; background: #f8fafc; }
 
-    /* ── Skeleton loading ── */
+    /* ── Skeleton ── */
     .skeleton {
       background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
       background-size: 200% 100%;
@@ -238,47 +207,58 @@
     <img class="header-icon" src="/logo.svg" alt="Release Monitor">
     <div class="header-text">
       <h1>Release Monitor</h1>
-      <p>Monitoring GitHub releases and sending Google Chat notifications</p>
+      <p data-i18n="header.subtitle">Monitoring releases and sending Google Chat notifications</p>
     </div>
-    <div class="running-badge">
-      <div class="pulse-dot"></div>
-      Running
+    <div class="header-right">
+      <div class="running-badge">
+        <div class="pulse-dot"></div>
+        <span data-i18n="status.running">Running</span>
+      </div>
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="en" onclick="applyLang('en')" title="English">EN</button>
+        <button class="lang-btn" data-lang="pt" onclick="applyLang('pt')" title="Português">PT</button>
+        <button class="lang-btn" data-lang="es" onclick="applyLang('es')" title="Español">ES</button>
+      </div>
     </div>
   </div>
 
   <div class="body">
 
     <div class="toolbar">
-      <span class="last-updated" id="last-updated">Loading…</span>
-      <button class="refresh-btn" onclick="fetchStatus()">↻ Refresh</button>
+      <span class="last-updated" id="last-updated" data-i18n="status.loading">Loading…</span>
+      <button class="refresh-btn" onclick="fetchStatus()" data-i18n="status.refresh">↻ Refresh</button>
     </div>
 
     <div class="section">
-      <div class="section-label"><span>📦</span> Monitored Repositories</div>
+      <div class="section-label"><span>📡</span> <span data-i18n="section.monitored">Monitored Sources</span></div>
       <div class="repos-grid" id="repos-grid">
         <div class="repo-card">
-          <div class="skeleton skel-line skel-short" style="margin-bottom:14px"></div>
-          <div class="skeleton skel-line skel-short" style="width:40%;height:20px;border-radius:6px"></div>
-          <div class="skeleton skel-line skel-long" style="margin-top:12px"></div>
+          <div class="skeleton skel-line skel-short" style="margin-bottom:12px"></div>
+          <div class="skeleton skel-line skel-short" style="width:40%;height:22px;border-radius:6px"></div>
+          <div class="skeleton skel-line skel-long" style="margin-top:10px"></div>
         </div>
         <div class="repo-card">
-          <div class="skeleton skel-line skel-short" style="margin-bottom:14px"></div>
-          <div class="skeleton skel-line skel-short" style="width:40%;height:20px;border-radius:6px"></div>
-          <div class="skeleton skel-line skel-long" style="margin-top:12px"></div>
+          <div class="skeleton skel-line skel-short" style="margin-bottom:12px"></div>
+          <div class="skeleton skel-line skel-short" style="width:40%;height:22px;border-radius:6px"></div>
+          <div class="skeleton skel-line skel-long" style="margin-top:10px"></div>
         </div>
       </div>
     </div>
 
     <div class="section" style="margin-bottom:0">
-      <div class="section-label"><span>⚙️</span> Configuration</div>
+      <div class="section-label"><span>⚙️</span> <span data-i18n="section.config">Configuration</span></div>
       <div class="config-panel" id="config-panel">
         <div class="config-row">
-          <div class="skeleton skel-line" style="width:120px"></div>
-          <div class="skeleton skel-line" style="width:80px"></div>
+          <div class="skeleton skel-line" style="width:130px"></div>
+          <div class="skeleton skel-line" style="width:90px"></div>
         </div>
         <div class="config-row">
-          <div class="skeleton skel-line" style="width:100px"></div>
-          <div class="skeleton skel-line" style="width:60px"></div>
+          <div class="skeleton skel-line" style="width:110px"></div>
+          <div class="skeleton skel-line" style="width:70px"></div>
+        </div>
+        <div class="config-row">
+          <div class="skeleton skel-line" style="width:80px"></div>
+          <div class="skeleton skel-line" style="width:120px"></div>
         </div>
       </div>
     </div>
@@ -286,97 +266,218 @@
   </div>
 
   <div class="card-footer">
-    <a class="configure-link" href="/configure">Edit configuration →</a>
+    <a class="configure-link" href="/configure" data-i18n="footer.configure">Edit configuration →</a>
   </div>
 
 </div>
 <script>
-  function timeAgo(iso) {
-    if (!iso) return null;
-    const diff = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
-    if (diff < 5)    return 'just now';
-    if (diff < 60)   return `${diff}s ago`;
-    if (diff < 3600) return `${Math.floor(diff / 60)}m ago`;
-    return `${Math.floor(diff / 3600)}h ago`;
+// ── i18n ──────────────────────────────────────────────────────────────────────
+const TRANSLATIONS = {
+  en: {
+    'page.title':               'Release Monitor — Status',
+    'header.subtitle':          'Monitoring releases and sending Google Chat notifications',
+    'status.running':           'Running',
+    'status.loading':           'Loading…',
+    'status.refresh':           '↻ Refresh',
+    'section.monitored':        'Monitored Sources',
+    'section.config':           'Configuration',
+    'footer.configure':         'Edit configuration →',
+    'card.awaiting':            'Awaiting first check…',
+    'card.checked':             'Checked',
+    'config.interval':          'Check interval',
+    'config.interval.val':      'every {n} min',
+    'config.prereleases':       'Pre-releases',
+    'config.prereleases.off':   'ignored',
+    'config.prereleases.on':    'included',
+    'config.timezone':          'Timezone',
+    'toolbar.updated':          'Updated at {time}',
+    'toolbar.failed':           'Failed to load — retrying…',
+    'nosources':                'No sources configured.',
+    'time.justnow':             'just now',
+    'time.Xs':                  '{n}s ago',
+    'time.Xm':                  '{n}m ago',
+    'time.Xh':                  '{n}h ago',
+    'source.github':            'GitHub',
+    'source.gitlab':            'GitLab',
+    'source.pypi':              'PyPI',
+    'source.docker':            'Docker Hub',
+    'source.npm':               'npm',
+  },
+  pt: {
+    'page.title':               'Release Monitor — Status',
+    'header.subtitle':          'Monitorando lançamentos e enviando notificações para o Google Chat',
+    'status.running':           'Em execução',
+    'status.loading':           'Carregando…',
+    'status.refresh':           '↻ Atualizar',
+    'section.monitored':        'Fontes Monitoradas',
+    'section.config':           'Configuração',
+    'footer.configure':         'Editar configuração →',
+    'card.awaiting':            'Aguardando primeira verificação…',
+    'card.checked':             'Verificado',
+    'config.interval':          'Intervalo de verificação',
+    'config.interval.val':      'a cada {n} min',
+    'config.prereleases':       'Pré-lançamentos',
+    'config.prereleases.off':   'ignorados',
+    'config.prereleases.on':    'incluídos',
+    'config.timezone':          'Fuso horário',
+    'toolbar.updated':          'Atualizado às {time}',
+    'toolbar.failed':           'Falha ao carregar — tentando novamente…',
+    'nosources':                'Nenhuma fonte configurada.',
+    'time.justnow':             'agora mesmo',
+    'time.Xs':                  'há {n}s',
+    'time.Xm':                  'há {n} min',
+    'time.Xh':                  'há {n}h',
+    'source.github':            'GitHub',
+    'source.gitlab':            'GitLab',
+    'source.pypi':              'PyPI',
+    'source.docker':            'Docker Hub',
+    'source.npm':               'npm',
+  },
+  es: {
+    'page.title':               'Release Monitor — Estado',
+    'header.subtitle':          'Monitoreando lanzamientos y enviando notificaciones a Google Chat',
+    'status.running':           'Ejecutando',
+    'status.loading':           'Cargando…',
+    'status.refresh':           '↻ Actualizar',
+    'section.monitored':        'Fuentes Monitoreadas',
+    'section.config':           'Configuración',
+    'footer.configure':         'Editar configuración →',
+    'card.awaiting':            'Esperando primera verificación…',
+    'card.checked':             'Verificado',
+    'config.interval':          'Intervalo de verificación',
+    'config.interval.val':      'cada {n} min',
+    'config.prereleases':       'Pre-lanzamientos',
+    'config.prereleases.off':   'ignorados',
+    'config.prereleases.on':    'incluidos',
+    'config.timezone':          'Zona horaria',
+    'toolbar.updated':          'Actualizado a las {time}',
+    'toolbar.failed':           'Error al cargar — reintentando…',
+    'nosources':                'No hay fuentes configuradas.',
+    'time.justnow':             'ahora mismo',
+    'time.Xs':                  'hace {n}s',
+    'time.Xm':                  'hace {n} min',
+    'time.Xh':                  'hace {n}h',
+    'source.github':            'GitHub',
+    'source.gitlab':            'GitLab',
+    'source.pypi':              'PyPI',
+    'source.docker':            'Docker Hub',
+    'source.npm':               'npm',
+  },
+};
+
+let _lang = localStorage.getItem('rm-lang') || navigator.language.slice(0, 2);
+if (!TRANSLATIONS[_lang]) _lang = 'en';
+
+function t(key) {
+  return (TRANSLATIONS[_lang] || TRANSLATIONS.en)[key] || key;
+}
+
+function applyLang(lang) {
+  _lang = lang;
+  localStorage.setItem('rm-lang', lang);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t(el.dataset.i18n); if (v !== el.dataset.i18n) el.textContent = v;
+  });
+  document.querySelectorAll('[data-lang]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  document.title = t('page.title');
+}
+
+// ── helpers ───────────────────────────────────────────────────────────────────
+function timeAgo(iso) {
+  if (!iso) return null;
+  const diff = Math.floor((Date.now() - new Date(iso).getTime()) / 1000);
+  if (diff < 5)    return t('time.justnow');
+  const fmt = (key, n) => t(key).replace('{n}', n);
+  if (diff < 60)   return fmt('time.Xs', diff);
+  if (diff < 3600) return fmt('time.Xm', Math.floor(diff / 60));
+  return fmt('time.Xh', Math.floor(diff / 3600));
+}
+
+function formatDate(iso) {
+  if (!iso) return null;
+  return new Date(iso).toLocaleDateString(undefined, {
+    year: 'numeric', month: 'short', day: 'numeric',
+  });
+}
+
+// ── render ────────────────────────────────────────────────────────────────────
+const _srcMap = {
+  github: ['source-github'], gitlab: ['source-gitlab'],
+  pypi:   ['source-pypi'],   docker: ['source-docker'], npm: ['source-npm'],
+};
+
+function renderRepos(repos) {
+  const grid = document.getElementById('repos-grid');
+  if (!repos.length) {
+    grid.innerHTML = `<p style="color:#94a3b8;font-size:13px">${t('nosources')}</p>`;
+    return;
   }
+  grid.innerHTML = repos.map(repo => {
+    const srcLabel = t('source.' + (repo.source || 'github'));
+    const srcCls   = (_srcMap[repo.source] || _srcMap.github)[0];
+    const rel      = repo.last_release;
 
-  function formatDate(iso) {
-    if (!iso) return null;
-    return new Date(iso).toLocaleDateString(undefined, {
-      year: 'numeric', month: 'short', day: 'numeric'
-    });
-  }
+    const releaseBlock = rel
+      ? `<a class="release-tag" href="${rel.html_url}" target="_blank" rel="noopener">${rel.tag_name}</a>
+         <div class="meta-line" title="${rel.published_at}">📅 ${formatDate(rel.published_at)}</div>`
+      : `<span class="no-data">${t('card.awaiting')}</span>`;
 
-  function renderRepos(repos) {
-    const grid = document.getElementById('repos-grid');
-    if (!repos.length) {
-      grid.innerHTML = '<p style="color:#94a3b8;font-size:13px">No repositories configured.</p>';
-      return;
-    }
-    grid.innerHTML = repos.map(repo => {
-      const rel = repo.last_release;
-      const releaseBlock = rel
-        ? `<a class="release-tag" href="${rel.html_url}" target="_blank">${rel.tag_name}</a>
-           <div class="meta-line">📅 ${formatDate(rel.published_at)}</div>`
-        : `<span class="no-data">Awaiting first check…</span>`;
+    const checkedBlock = repo.last_checked
+      ? `<div class="meta-line" title="${repo.last_checked}" style="margin-top:4px">🔍 ${t('card.checked')} ${timeAgo(repo.last_checked)}</div>`
+      : '';
 
-      const checkedBlock = repo.last_checked
-        ? `<div class="meta-line" style="margin-top:6px">🔍 Checked ${timeAgo(repo.last_checked)}</div>`
-        : '';
-
-      const _srcMap = { github: ['GitHub', 'source-github'], gitlab: ['GitLab', 'source-gitlab'], pypi: ['PyPI', 'source-pypi'], docker: ['Docker Hub', 'source-docker'], npm: ['npm', 'source-npm'] };
-      const [sourceLabel, sourceCls] = _srcMap[repo.source] || _srcMap.github;
-
-      return `
-        <div class="repo-card">
-          <div class="repo-header">
-            <a class="repo-name" href="${repo.url}" target="_blank" title="${repo.name}">${repo.name}</a>
-            <span class="source-badge ${sourceCls}">${sourceLabel}</span>
+    return `
+      <div class="repo-card">
+        <div class="repo-header">
+          <div class="repo-name-wrap">
+            <a class="repo-name" href="${repo.url}" target="_blank" rel="noopener" title="${repo.name}">${repo.name}</a>
           </div>
-          ${releaseBlock}
-          ${checkedBlock}
-        </div>`;
-    }).join('');
-  }
-
-  function renderConfig(config) {
-    document.getElementById('config-panel').innerHTML = `
-      <div class="config-row">
-        <span class="config-key">Check interval</span>
-        <span class="config-val">every ${config.interval_minutes} min</span>
-      </div>
-      <div class="config-row">
-        <span class="config-key">Pre-releases</span>
-        <span class="config-val">${config.ignore_prerelease ? 'ignored' : 'included'}</span>
-      </div>
-      <div class="config-row">
-        <span class="config-key">Timezone</span>
-        <span class="config-val">${config.timezone}</span>
+          <span class="source-badge ${srcCls}">${srcLabel}</span>
+        </div>
+        ${releaseBlock}${checkedBlock}
       </div>`;
+  }).join('');
+}
+
+function renderConfig(cfg) {
+  document.getElementById('config-panel').innerHTML = `
+    <div class="config-row">
+      <span class="config-key">${t('config.interval')}</span>
+      <span class="config-val">${t('config.interval.val').replace('{n}', cfg.interval_minutes)}</span>
+    </div>
+    <div class="config-row">
+      <span class="config-key">${t('config.prereleases')}</span>
+      <span class="config-val">${cfg.ignore_prerelease ? t('config.prereleases.off') : t('config.prereleases.on')}</span>
+    </div>
+    <div class="config-row">
+      <span class="config-key">${t('config.timezone')}</span>
+      <span class="config-val">${cfg.timezone}</span>
+    </div>`;
+}
+
+// ── polling ───────────────────────────────────────────────────────────────────
+let _refreshTimer = null;
+
+async function fetchStatus() {
+  try {
+    const res  = await fetch('/api/status');
+    const data = await res.json();
+    renderRepos(data.repos);
+    renderConfig(data.config);
+    const time = new Date().toLocaleTimeString();
+    document.getElementById('last-updated').textContent = t('toolbar.updated').replace('{time}', time);
+  } catch {
+    document.getElementById('last-updated').textContent = t('toolbar.failed');
   }
+  clearTimeout(_refreshTimer);
+  _refreshTimer = setTimeout(fetchStatus, 30_000);
+}
 
-  let _refreshTimer = null;
-
-  async function fetchStatus() {
-    try {
-      const res  = await fetch('/api/status');
-      const data = await res.json();
-      renderRepos(data.repos);
-      renderConfig(data.config);
-      const t = new Date().toLocaleTimeString();
-      document.getElementById('last-updated').textContent = `Updated at ${t}`;
-    } catch {
-      document.getElementById('last-updated').textContent = 'Failed to load — retrying…';
-    }
-    scheduleRefresh();
-  }
-
-  function scheduleRefresh() {
-    clearTimeout(_refreshTimer);
-    _refreshTimer = setTimeout(fetchStatus, 30_000);
-  }
-
-  fetchStatus();
+// ── bootstrap ─────────────────────────────────────────────────────────────────
+applyLang(_lang);
+fetchStatus();
 </script>
 </body>
 </html>

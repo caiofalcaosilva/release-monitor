@@ -30,37 +30,87 @@
     /* ── Header ── */
     .header {
       background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
-      padding: 28px 32px;
+      padding: 24px 28px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
-    .header-icon { width: 44px; height: 44px; flex-shrink: 0; }
-    .header h1 { font-size: 20px; font-weight: 700; color: #f8fafc; letter-spacing: -0.3px; }
-    .header p  { font-size: 13px; color: #94a3b8; margin-top: 3px; }
+    .header-icon { width: 40px; height: 40px; flex-shrink: 0; }
+    .header-text { flex: 1; min-width: 0; }
+    .header h1 { font-size: 18px; font-weight: 700; color: #f8fafc; letter-spacing: -0.3px; }
+    .header p  { font-size: 12px; color: #94a3b8; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* ── Lang switcher ── */
+    .lang-switcher { display: flex; gap: 3px; flex-shrink: 0; }
+    .lang-btn {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      color: #64748b;
+      border-radius: 5px;
+      padding: 4px 9px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      letter-spacing: 0.05em;
+      transition: all 0.15s;
+    }
+    .lang-btn:hover  { background: rgba(255,255,255,0.15); color: #cbd5e1; }
+    .lang-btn.active { background: rgba(255,255,255,0.18); color: #f1f5f9; border-color: rgba(255,255,255,0.3); }
 
     /* ── Body ── */
-    .body { padding: 32px 32px 0; }
+    .body { padding: 28px 28px 0; }
+
+    /* ── Sources meta bar ── */
+    .sources-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+    .sources-meta-text { font-size: 12px; color: #64748b; line-height: 1.4; }
+    .sources-meta-text strong { color: #0f172a; }
+    .source-count-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      white-space: nowrap;
+      transition: all 0.2s;
+      background: #f1f5f9;
+      color: #94a3b8;
+      border: 1px solid #e2e8f0;
+    }
+    .source-count-badge.has-sources {
+      background: #f0fdf4;
+      color: #15803d;
+      border-color: #bbf7d0;
+    }
 
     /* ── Section ── */
-    .section { margin-bottom: 28px; }
+    .section { margin-bottom: 24px; }
     .section-label {
       font-size: 10.5px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
       color: #94a3b8;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
+      margin-bottom: 12px;
+      padding-bottom: 9px;
       border-bottom: 1px solid #f1f5f9;
       display: flex;
       align-items: center;
       gap: 7px;
     }
-    .section-label span { font-size: 14px; }
+    .section-label span { font-size: 13px; }
 
     /* ── Field ── */
-    .field { margin-bottom: 14px; }
+    .field { margin-bottom: 12px; }
     .field:last-child { margin-bottom: 0; }
 
     .field > label {
@@ -75,10 +125,19 @@
     .hint {
       font-size: 11.5px;
       color: #94a3b8;
-      margin-bottom: 7px;
+      margin-bottom: 6px;
       line-height: 1.5;
     }
+    .hint code {
+      font-family: ui-monospace, "SF Mono", monospace;
+      background: #f1f5f9;
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 11px;
+      color: #475569;
+    }
 
+    /* ── Badges ── */
     .badge {
       font-size: 9.5px;
       font-weight: 700;
@@ -88,6 +147,15 @@
     }
     .required { background: #fef2f2; color: #dc2626; }
     .optional  { background: #f1f5f9; color: #64748b; }
+
+    /* ── Field error ── */
+    .field-error {
+      display: none;
+      font-size: 11.5px;
+      color: #dc2626;
+      margin-top: 5px;
+      font-weight: 500;
+    }
 
     /* ── Inputs ── */
     input[type="text"],
@@ -112,25 +180,21 @@
     }
     input.invalid { border-color: #ef4444 !important; box-shadow: 0 0 0 3px rgba(239,68,68,0.1) !important; }
 
-    /* ── Password field wrapper ── */
+    /* ── Password wrapper ── */
     .pw-wrap { position: relative; }
     .pw-wrap input { padding-right: 40px; }
     .pw-eye {
-      position: absolute;
-      right: 10px; top: 50%;
+      position: absolute; right: 10px; top: 50%;
       transform: translateY(-50%);
       background: none; border: none;
       cursor: pointer; font-size: 16px;
-      color: #94a3b8; line-height: 1;
-      padding: 4px;
+      color: #94a3b8; line-height: 1; padding: 4px;
     }
     .pw-eye:hover { color: #475569; }
 
     /* ── Tags input ── */
     .tags-box {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      display: flex; flex-wrap: wrap; gap: 6px;
       align-items: center;
       border: 1.5px solid #e2e8f0;
       border-radius: 9px;
@@ -147,73 +211,63 @@
     }
     .tags-box.invalid { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239,68,68,0.1); }
     .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      background: #eff6ff;
-      color: #1d4ed8;
+      display: inline-flex; align-items: center; gap: 3px;
+      background: #eff6ff; color: #1d4ed8;
       border: 1px solid #bfdbfe;
-      border-radius: 6px;
-      padding: 2px 8px 2px 9px;
-      font-size: 12px;
-      font-weight: 500;
+      border-radius: 6px; padding: 2px 8px 2px 9px;
+      font-size: 12px; font-weight: 500;
       font-family: ui-monospace, "SF Mono", monospace;
       white-space: nowrap;
     }
     .tag-rm {
-      background: none; border: none;
-      cursor: pointer; color: #93c5fd;
-      font-size: 15px; line-height: 1;
-      padding: 0 0 0 2px;
+      background: none; border: none; cursor: pointer;
+      color: #93c5fd; font-size: 15px; line-height: 1; padding: 0 0 0 2px;
     }
     .tag-rm:hover { color: #1d4ed8; }
     .tag-input {
-      border: none !important;
-      outline: none !important;
-      background: transparent !important;
-      box-shadow: none !important;
+      border: none !important; outline: none !important;
+      background: transparent !important; box-shadow: none !important;
       padding: 2px 4px !important;
-      font-size: 13px;
-      color: #0f172a;
-      flex: 1;
-      min-width: 150px;
+      font-size: 13px; color: #0f172a;
+      flex: 1; min-width: 130px;
     }
+
+    /* ── Auth toggle ── */
+    .auth-row { margin-top: 8px; }
+    .auth-toggle {
+      background: none; border: none;
+      color: #3b82f6; font-size: 12px; font-weight: 500;
+      cursor: pointer; padding: 0; font-family: inherit;
+      transition: color 0.15s;
+    }
+    .auth-toggle:hover { color: #1d4ed8; }
+    .auth-fields {
+      display: none;
+      padding-top: 12px; margin-top: 12px;
+      border-top: 1px dashed #e2e8f0;
+    }
+    .auth-fields.open { display: block; }
 
     /* ── Toggle switch ── */
     .toggle-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 16px;
     }
     .toggle-info { flex: 1; }
     .toggle-info label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #1e293b;
-      cursor: pointer;
-      display: block;
-      margin-bottom: 2px;
+      font-size: 13px; font-weight: 600; color: #1e293b;
+      cursor: pointer; display: block; margin-bottom: 2px;
     }
-    .toggle {
-      position: relative;
-      width: 42px; height: 24px;
-      flex-shrink: 0;
-    }
+    .toggle { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
     .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
     .track {
       position: absolute; inset: 0;
-      background: #cbd5e1;
-      border-radius: 24px;
-      cursor: pointer;
-      transition: background 0.2s;
+      background: #cbd5e1; border-radius: 24px;
+      cursor: pointer; transition: background 0.2s;
     }
     .track::after {
-      content: '';
-      position: absolute;
-      width: 18px; height: 18px;
-      background: #fff;
-      border-radius: 50%;
+      content: ''; position: absolute;
+      width: 18px; height: 18px; background: #fff; border-radius: 50%;
       top: 3px; left: 3px;
       transition: transform 0.2s;
       box-shadow: 0 1px 4px rgba(0,0,0,0.2);
@@ -223,13 +277,10 @@
 
     /* ── Advanced ── */
     .adv-btn {
-      background: none; border: none;
-      cursor: pointer;
-      font-size: 12px; font-weight: 500;
-      color: #64748b;
+      background: none; border: none; cursor: pointer;
+      font-size: 12px; font-weight: 500; color: #64748b;
       display: flex; align-items: center; gap: 6px;
-      padding: 0; margin-bottom: 14px;
-      transition: color 0.15s;
+      padding: 0; margin-bottom: 12px; transition: color 0.15s;
     }
     .adv-btn:hover { color: #334155; }
     .adv-arrow { font-size: 9px; transition: transform 0.2s; display: inline-block; }
@@ -237,39 +288,47 @@
     .adv-content { display: none; }
     .adv-content.open { display: block; }
 
+    /* ── Error banner ── */
+    .validation-error {
+      display: none;
+      background: #fef2f2;
+      border: 1.5px solid #fecaca;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      color: #b91c1c;
+      font-weight: 500;
+      margin-bottom: 14px;
+    }
+    .validation-error.show { display: block; }
+
     /* ── Footer ── */
-    .footer { padding: 24px 32px 32px; }
+    .footer { padding: 20px 28px 28px; }
     .submit-btn {
-      width: 100%;
-      padding: 13px;
+      width: 100%; padding: 13px;
       background: linear-gradient(135deg, #1d4ed8, #0f3460);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      font-family: inherit;
-      cursor: pointer;
-      letter-spacing: 0.01em;
+      color: #fff; border: none; border-radius: 10px;
+      font-size: 14px; font-weight: 600; font-family: inherit;
+      cursor: pointer; letter-spacing: 0.01em;
       transition: opacity 0.15s, transform 0.1s, box-shadow 0.15s;
       box-shadow: 0 4px 14px rgba(29,78,216,0.35);
+      display: flex; align-items: center; justify-content: center; gap: 8px;
     }
-    .submit-btn:hover:not(:disabled) {
-      opacity: 0.92;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(29,78,216,0.4);
-    }
+    .submit-btn:hover:not(:disabled) { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(29,78,216,0.4); }
     .submit-btn:active:not(:disabled) { transform: translateY(0); }
     .submit-btn:disabled { opacity: 0.55; cursor: not-allowed; box-shadow: none; }
+    .btn-spinner {
+      width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin 0.6s linear infinite; display: none;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── Success ── */
     .success {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 72px 32px;
-      text-align: center;
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 72px 32px; text-align: center;
     }
     .success.show { display: flex; }
     .success-icon { font-size: 64px; margin-bottom: 20px; animation: pop 0.4s ease; }
@@ -287,65 +346,98 @@
 
   <div class="header">
     <img class="header-icon" src="/logo.svg" alt="Release Monitor">
-    <div>
+    <div class="header-text">
       <h1>Release Monitor</h1>
-      <p>Fill in the settings below to configure and start the application</p>
+      <p data-i18n="header.subtitle">Configure sources and notifications</p>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="en" onclick="applyLang('en')" title="English">EN</button>
+      <button class="lang-btn" data-lang="pt" onclick="applyLang('pt')" title="Português">PT</button>
+      <button class="lang-btn" data-lang="es" onclick="applyLang('es')" title="Español">ES</button>
     </div>
   </div>
 
   <div class="main-content">
     <div class="body">
 
+      <!-- Sources meta bar -->
+      <div class="sources-meta">
+        <div class="sources-meta-text" data-i18n="section.sources.hint">Configure at least one source below</div>
+        <span class="source-count-badge" id="source-count-badge" data-i18n="badge.nosource">0 configured</span>
+      </div>
+
       <!-- GitHub -->
       <div class="section">
-        <div class="section-label"><span>🐙</span> GitHub</div>
+        <div class="section-label"><span>🐙</span> <span data-i18n="github.label">GitHub</span></div>
         <div class="field">
-          <label>Repositories <span class="badge optional">optional</span></label>
-          <div class="hint">Format: <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">owner/repo</code> — press Enter or comma to add. Paste a comma-separated list to add multiple at once.</div>
+          <label><span data-i18n="github.repos.label">Repositories</span> <span class="badge optional" data-i18n="common.optional">optional</span></label>
+          <div class="hint" data-i18n-html="github.repos.hint">Format: <code>owner/repo</code> — press Enter or comma to add.</div>
           <div class="tags-box" id="tags-box">
-            <input class="tag-input" id="repo-input" type="text" placeholder="e.g. torvalds/linux" autocomplete="off" spellcheck="false">
+            <input class="tag-input" id="repo-input" type="text"
+                   data-i18n-placeholder="github.repos.placeholder"
+                   placeholder="e.g. torvalds/linux" autocomplete="off" spellcheck="false">
           </div>
           <input type="hidden" id="repos-value">
+          <div class="field-error" id="tags-box-error" data-i18n="error.ownerrepo">Must use owner/repo format</div>
         </div>
-        <div class="field">
-          <label>Personal Access Token <span class="badge optional">optional</span></label>
-          <div class="hint">Raises the rate limit from <strong>60</strong> to <strong>5,000</strong> req/hour. No scopes needed for public repos.</div>
-          <div class="pw-wrap">
-            <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
-            <button type="button" class="pw-eye" onclick="togglePw('github-token', this)" title="Show/hide">👁</button>
+        <div class="auth-row">
+          <button class="auth-toggle" type="button" id="auth-toggle-github" onclick="toggleAuth('auth-github','auth-toggle-github')">
+            <span data-i18n="common.showauthentication">+ Add authentication</span>
+          </button>
+        </div>
+        <div class="auth-fields" id="auth-github">
+          <div class="field">
+            <label><span data-i18n="github.token.label">Personal Access Token</span> <span class="badge optional" data-i18n="common.optional">optional</span></label>
+            <div class="hint" data-i18n-html="github.token.hint">Raises the rate limit from <strong>60</strong> to <strong>5,000</strong> req/hour.</div>
+            <div class="pw-wrap">
+              <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+              <button type="button" class="pw-eye" onclick="togglePw('github-token',this)">👁</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- GitLab -->
       <div class="section">
-        <div class="section-label"><span>🦊</span> GitLab</div>
+        <div class="section-label"><span>🦊</span> <span data-i18n="gitlab.label">GitLab</span></div>
         <div class="field">
-          <label>Repositories <span class="badge optional">optional</span></label>
-          <div class="hint">Format: <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">owner/repo</code> — press Enter or comma to add.</div>
+          <label><span data-i18n="gitlab.repos.label">Repositories</span> <span class="badge optional" data-i18n="common.optional">optional</span></label>
+          <div class="hint" data-i18n-html="gitlab.repos.hint">Format: <code>owner/repo</code> — press Enter or comma to add.</div>
           <div class="tags-box" id="gl-tags-box">
-            <input class="tag-input" id="gl-repo-input" type="text" placeholder="e.g. gitlab-org/gitlab" autocomplete="off" spellcheck="false">
+            <input class="tag-input" id="gl-repo-input" type="text"
+                   data-i18n-placeholder="gitlab.repos.placeholder"
+                   placeholder="e.g. gitlab-org/gitlab" autocomplete="off" spellcheck="false">
           </div>
           <input type="hidden" id="gitlab-repos-value">
+          <div class="field-error" id="gl-tags-box-error" data-i18n="error.ownerrepo">Must use owner/repo format</div>
         </div>
-        <div class="field">
-          <label>Personal Access Token <span class="badge optional">optional</span></label>
-          <div class="hint">Required for private repos. Create at Settings → Access Tokens.</div>
-          <div class="pw-wrap">
-            <input type="password" id="gitlab-token" placeholder="glpat-xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
-            <button type="button" class="pw-eye" onclick="togglePw('gitlab-token', this)" title="Show/hide">👁</button>
+        <div class="auth-row">
+          <button class="auth-toggle" type="button" id="auth-toggle-gitlab" onclick="toggleAuth('auth-gitlab','auth-toggle-gitlab')">
+            <span data-i18n="common.showauthentication">+ Add authentication</span>
+          </button>
+        </div>
+        <div class="auth-fields" id="auth-gitlab">
+          <div class="field">
+            <label><span data-i18n="gitlab.token.label">Personal Access Token</span> <span class="badge optional" data-i18n="common.optional">optional</span></label>
+            <div class="hint" data-i18n="gitlab.token.hint">Required for private repos.</div>
+            <div class="pw-wrap">
+              <input type="password" id="gitlab-token" placeholder="glpat-xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+              <button type="button" class="pw-eye" onclick="togglePw('gitlab-token',this)">👁</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- PyPI -->
       <div class="section">
-        <div class="section-label"><span>🐍</span> PyPI</div>
+        <div class="section-label"><span>🐍</span> <span data-i18n="pypi.label">PyPI</span></div>
         <div class="field">
-          <label>Packages <span class="badge optional">optional</span></label>
-          <div class="hint">Package names — press Enter or comma to add, e.g. <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">requests</code>, <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">django</code>.</div>
+          <label><span data-i18n="pypi.packages.label">Packages</span> <span class="badge optional" data-i18n="common.optional">optional</span></label>
+          <div class="hint" data-i18n-html="pypi.packages.hint">Package names, e.g. <code>requests</code>, <code>django</code>.</div>
           <div class="tags-box" id="pypi-tags-box">
-            <input class="tag-input" id="pypi-input" type="text" placeholder="e.g. requests" autocomplete="off" spellcheck="false">
+            <input class="tag-input" id="pypi-input" type="text"
+                   data-i18n-placeholder="pypi.packages.placeholder"
+                   placeholder="e.g. requests" autocomplete="off" spellcheck="false">
           </div>
           <input type="hidden" id="pypi-packages-value">
         </div>
@@ -353,68 +445,91 @@
 
       <!-- Docker Hub -->
       <div class="section">
-        <div class="section-label"><span>🐳</span> Docker Hub</div>
+        <div class="section-label"><span>🐳</span> <span data-i18n="docker.label">Docker Hub</span></div>
         <div class="field">
-          <label>Images <span class="badge optional">optional</span></label>
-          <div class="hint">Image names — e.g. <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">nginx</code> (official) or <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">user/image</code>. Only versioned tags (e.g. 1.0.0) are tracked.</div>
+          <label><span data-i18n="docker.images.label">Images</span> <span class="badge optional" data-i18n="common.optional">optional</span></label>
+          <div class="hint" data-i18n-html="docker.images.hint"><code>nginx</code> (official) or <code>user/image</code>. Only versioned tags tracked.</div>
           <div class="tags-box" id="docker-tags-box">
-            <input class="tag-input" id="docker-input" type="text" placeholder="e.g. nginx" autocomplete="off" spellcheck="false">
+            <input class="tag-input" id="docker-input" type="text"
+                   data-i18n-placeholder="docker.images.placeholder"
+                   placeholder="e.g. nginx" autocomplete="off" spellcheck="false">
           </div>
           <input type="hidden" id="docker-images-value">
         </div>
-        <div class="field">
-          <label>Access Token <span class="badge optional">optional</span></label>
-          <div class="hint">Required for private images. Generate at hub.docker.com → Account Settings → Security.</div>
-          <div class="pw-wrap">
-            <input type="password" id="dockerhub-token" placeholder="dckr_pat_xxxxxxxxxxxx" autocomplete="off" spellcheck="false">
-            <button type="button" class="pw-eye" onclick="togglePw('dockerhub-token', this)" title="Show/hide">👁</button>
+        <div class="auth-row">
+          <button class="auth-toggle" type="button" id="auth-toggle-docker" onclick="toggleAuth('auth-docker','auth-toggle-docker')">
+            <span data-i18n="common.showauthentication">+ Add authentication</span>
+          </button>
+        </div>
+        <div class="auth-fields" id="auth-docker">
+          <div class="field">
+            <label><span data-i18n="docker.token.label">Access Token</span> <span class="badge optional" data-i18n="common.optional">optional</span></label>
+            <div class="hint" data-i18n="docker.token.hint">Required for private images.</div>
+            <div class="pw-wrap">
+              <input type="password" id="dockerhub-token" placeholder="dckr_pat_xxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+              <button type="button" class="pw-eye" onclick="togglePw('dockerhub-token',this)">👁</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- npm -->
       <div class="section">
-        <div class="section-label"><span>📦</span> npm</div>
+        <div class="section-label"><span>📦</span> <span data-i18n="npm.label">npm</span></div>
         <div class="field">
-          <label>Packages <span class="badge optional">optional</span></label>
-          <div class="hint">Package names — e.g. <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">express</code> or scoped <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">@scope/package</code>.</div>
+          <label><span data-i18n="npm.packages.label">Packages</span> <span class="badge optional" data-i18n="common.optional">optional</span></label>
+          <div class="hint" data-i18n-html="npm.packages.hint">e.g. <code>express</code> or scoped <code>@scope/package</code>.</div>
           <div class="tags-box" id="npm-tags-box">
-            <input class="tag-input" id="npm-input" type="text" placeholder="e.g. express" autocomplete="off" spellcheck="false">
+            <input class="tag-input" id="npm-input" type="text"
+                   data-i18n-placeholder="npm.packages.placeholder"
+                   placeholder="e.g. express" autocomplete="off" spellcheck="false">
           </div>
           <input type="hidden" id="npm-packages-value">
         </div>
-        <div class="field">
-          <label>Access Token <span class="badge optional">optional</span></label>
-          <div class="hint">Required for private packages. Generate at npmjs.com → Access Tokens.</div>
-          <div class="pw-wrap">
-            <input type="password" id="npm-token" placeholder="npm_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
-            <button type="button" class="pw-eye" onclick="togglePw('npm-token', this)" title="Show/hide">👁</button>
+        <div class="auth-row">
+          <button class="auth-toggle" type="button" id="auth-toggle-npm" onclick="toggleAuth('auth-npm','auth-toggle-npm')">
+            <span data-i18n="common.showauthentication">+ Add authentication</span>
+          </button>
+        </div>
+        <div class="auth-fields" id="auth-npm">
+          <div class="field">
+            <label><span data-i18n="npm.token.label">Access Token</span> <span class="badge optional" data-i18n="common.optional">optional</span></label>
+            <div class="hint" data-i18n="npm.token.hint">Required for private packages.</div>
+            <div class="pw-wrap">
+              <input type="password" id="npm-token" placeholder="npm_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+              <button type="button" class="pw-eye" onclick="togglePw('npm-token',this)">👁</button>
+            </div>
           </div>
         </div>
       </div>
 
       <!-- Notifications -->
       <div class="section">
-        <div class="section-label"><span>🔔</span> Notifications</div>
+        <div class="section-label"><span>🔔</span> <span data-i18n="section.notifications">Notifications</span></div>
         <div class="field">
-          <label>Google Chat Webhook URL <span class="badge required">required</span></label>
-          <div class="hint">In your Google Chat space: Settings → Manage webhooks → Add webhook.</div>
-          <input type="text" id="webhook" placeholder="https://chat.googleapis.com/v1/spaces/..." autocomplete="off" spellcheck="false">
+          <label><span data-i18n="webhook.label">Google Chat Webhook URL</span> <span class="badge required" data-i18n="common.required">required</span></label>
+          <div class="hint" data-i18n="webhook.hint">In your Google Chat space: Settings → Manage webhooks → Add webhook.</div>
+          <input type="text" id="webhook"
+                 data-i18n-placeholder="webhook.placeholder"
+                 placeholder="https://chat.googleapis.com/v1/spaces/..." autocomplete="off" spellcheck="false">
         </div>
       </div>
 
       <!-- Schedule -->
       <div class="section">
-        <div class="section-label"><span>⏰</span> Schedule</div>
+        <div class="section-label"><span>⏰</span> <span data-i18n="section.schedule">Schedule</span></div>
         <div class="field">
-          <label>Check Interval <span class="badge optional">minutes</span></label>
+          <label>
+            <span data-i18n="interval.label">Check Interval</span>
+            <span class="badge optional" data-i18n="common.minutes">minutes</span>
+          </label>
           <input type="number" id="interval" value="60" min="1" max="1440" style="max-width:120px">
         </div>
         <div class="field">
           <div class="toggle-row">
             <div class="toggle-info">
-              <label for="toggle-prerelease">Ignore pre-releases</label>
-              <div class="hint" style="margin:0">Only notify for stable releases</div>
+              <label for="toggle-prerelease" data-i18n="prerelease.label">Ignore pre-releases</label>
+              <div class="hint" style="margin:0" data-i18n="prerelease.hint">Only notify for stable releases</div>
             </div>
             <label class="toggle">
               <input type="checkbox" id="toggle-prerelease" checked>
@@ -427,37 +542,30 @@
       <!-- Advanced -->
       <div class="section" style="margin-bottom:0">
         <button class="adv-btn" type="button" onclick="toggleAdv()">
-          <span class="adv-arrow" id="adv-arrow">▶</span> Advanced settings
+          <span class="adv-arrow" id="adv-arrow">▶</span>
+          <span data-i18n="section.advanced">Advanced settings</span>
         </button>
         <div class="adv-content" id="adv-content">
           <div class="field">
-            <label>Timezone</label>
-            <div class="hint">Used to display release timestamps in notifications.</div>
+            <label data-i18n="timezone.label">Timezone</label>
+            <div class="hint" data-i18n="timezone.hint">Used to display release timestamps in notifications.</div>
             <input type="text" id="timezone" list="tz-list" value="UTC" style="max-width:260px">
             <datalist id="tz-list">
-              <option value="UTC">
-              <option value="America/Sao_Paulo">
-              <option value="America/New_York">
-              <option value="America/Chicago">
-              <option value="America/Denver">
-              <option value="America/Los_Angeles">
-              <option value="Europe/London">
-              <option value="Europe/Paris">
-              <option value="Europe/Berlin">
-              <option value="Asia/Tokyo">
-              <option value="Asia/Shanghai">
-              <option value="Asia/Kolkata">
+              <option value="UTC"><option value="America/Sao_Paulo"><option value="America/New_York">
+              <option value="America/Chicago"><option value="America/Denver"><option value="America/Los_Angeles">
+              <option value="Europe/London"><option value="Europe/Paris"><option value="Europe/Berlin">
+              <option value="Asia/Tokyo"><option value="Asia/Shanghai"><option value="Asia/Kolkata">
               <option value="Australia/Sydney">
             </datalist>
           </div>
           <div class="field">
-            <label>GitLab URL</label>
-            <div class="hint">Change only for self-hosted GitLab instances.</div>
+            <label data-i18n="gitlaburl.label">GitLab URL</label>
+            <div class="hint" data-i18n="gitlaburl.hint">Change only for self-hosted GitLab instances.</div>
             <input type="text" id="gitlab-url" value="https://gitlab.com" spellcheck="false">
           </div>
           <div class="field">
-            <label>State File Path</label>
-            <div class="hint">Where to persist the last seen release IDs between restarts.</div>
+            <label data-i18n="statefile.label">State File Path</label>
+            <div class="hint" data-i18n="statefile.hint">Where to persist the last seen release IDs between restarts.</div>
             <input type="text" id="state-file" value="/app/data/state.json" spellcheck="false">
           </div>
         </div>
@@ -466,198 +574,494 @@
     </div>
 
     <div class="footer">
+      <div class="validation-error" id="validation-error"></div>
       <button class="submit-btn" id="submit-btn" type="button" onclick="save()">
-        Save &amp; Start Application
+        <div class="btn-spinner" id="btn-spinner"></div>
+        <span id="btn-label" data-i18n="btn.save">Save &amp; Start Application</span>
       </button>
     </div>
   </div>
 
   <div class="success" id="success">
     <div class="success-icon">✅</div>
-    <h2 id="success-title">Configuration saved!</h2>
-    <p id="success-body">Release Monitor is starting up.<br>You can close this tab.</p>
+    <h2 id="success-title" data-i18n="success.title">Configuration saved!</h2>
+    <p id="success-body" data-i18n-html="success.body">Release Monitor is starting up.<br>You can close this tab.</p>
   </div>
 
 </div>
 <script>
-  const existing = __EXISTING__;
-  const mode = "__MODE__";
+// ── i18n ──────────────────────────────────────────────────────────────────────
+const TRANSLATIONS = {
+  en: {
+    'page.title':              'Release Monitor — Setup',
+    'header.subtitle':         'Configure sources and notifications',
+    'section.sources.hint':    'Configure at least one source below',
+    'section.notifications':   'Notifications',
+    'section.schedule':        'Schedule',
+    'section.advanced':        'Advanced settings',
+    'common.optional':         'optional',
+    'common.required':         'required',
+    'common.minutes':          'minutes',
+    'common.addanother':       'Add another…',
+    'common.showauthentication': '+ Add authentication',
+    'common.hideauthentication': '− Hide authentication',
+    'badge.nosource':          '0 configured',
+    'badge.sources':           '{n} configured ✓',
+    'github.label':            'GitHub',
+    'github.repos.label':      'Repositories',
+    'github.repos.hint':       'Format: <code>owner/repo</code> — press Enter or comma to add. Paste a comma-separated list to add multiple.',
+    'github.repos.placeholder':'e.g. torvalds/linux',
+    'github.token.label':      'Personal Access Token',
+    'github.token.hint':       'Raises the rate limit from <strong>60</strong> to <strong>5,000</strong> req/hour. No scopes needed for public repos.',
+    'gitlab.label':            'GitLab',
+    'gitlab.repos.label':      'Repositories',
+    'gitlab.repos.hint':       'Format: <code>owner/repo</code> — press Enter or comma to add.',
+    'gitlab.repos.placeholder':'e.g. gitlab-org/gitlab',
+    'gitlab.token.label':      'Personal Access Token',
+    'gitlab.token.hint':       'Required for private repos. Create at Settings → Access Tokens.',
+    'pypi.label':              'PyPI',
+    'pypi.packages.label':     'Packages',
+    'pypi.packages.hint':      'Package names, e.g. <code>requests</code>, <code>django</code>.',
+    'pypi.packages.placeholder':'e.g. requests',
+    'docker.label':            'Docker Hub',
+    'docker.images.label':     'Images',
+    'docker.images.hint':      '<code>nginx</code> (official) or <code>user/image</code>. Only versioned tags (e.g. 1.0.0) are tracked.',
+    'docker.images.placeholder':'e.g. nginx',
+    'docker.token.label':      'Access Token',
+    'docker.token.hint':       'Required for private images. Generate at hub.docker.com → Account Settings → Security.',
+    'npm.label':               'npm',
+    'npm.packages.label':      'Packages',
+    'npm.packages.hint':       'e.g. <code>express</code> or scoped <code>@scope/package</code>.',
+    'npm.packages.placeholder':'e.g. express',
+    'npm.token.label':         'Access Token',
+    'npm.token.hint':          'Required for private packages. Generate at npmjs.com → Access Tokens.',
+    'webhook.label':           'Google Chat Webhook URL',
+    'webhook.hint':            'In your Google Chat space: Settings → Manage webhooks → Add webhook.',
+    'webhook.placeholder':     'https://chat.googleapis.com/v1/spaces/...',
+    'interval.label':          'Check Interval',
+    'prerelease.label':        'Ignore pre-releases',
+    'prerelease.hint':         'Only notify for stable releases',
+    'timezone.label':          'Timezone',
+    'timezone.hint':           'Used to display release timestamps in notifications.',
+    'gitlaburl.label':         'GitLab URL',
+    'gitlaburl.hint':          'Change only for self-hosted GitLab instances.',
+    'statefile.label':         'State File Path',
+    'statefile.hint':          'Where to persist the last seen release IDs between restarts.',
+    'btn.save':                'Save & Start Application',
+    'btn.saving':              'Saving…',
+    'success.title':           'Configuration saved!',
+    'success.body':            'Release Monitor is starting up.<br>You can close this tab.',
+    'reconfig.success.title':  'Configuration updated!',
+    'reconfig.success.body':   'Restart the app to apply the new settings.',
+    'reconfig.back':           '← Back to status',
+    'error.nosource':          'Configure at least one source to monitor',
+    'error.nowebhook':         'Google Chat webhook URL is required',
+    'error.ownerrepo':         'Must use owner/repo format',
+    'error.save':              'Could not save configuration. Check the terminal for errors.',
+  },
+  pt: {
+    'page.title':              'Release Monitor — Configuração',
+    'header.subtitle':         'Configure fontes e notificações',
+    'section.sources.hint':    'Configure pelo menos uma fonte abaixo',
+    'section.notifications':   'Notificações',
+    'section.schedule':        'Agendamento',
+    'section.advanced':        'Configurações avançadas',
+    'common.optional':         'opcional',
+    'common.required':         'obrigatório',
+    'common.minutes':          'minutos',
+    'common.addanother':       'Adicionar mais…',
+    'common.showauthentication': '+ Adicionar autenticação',
+    'common.hideauthentication': '− Ocultar autenticação',
+    'badge.nosource':          '0 configurado',
+    'badge.sources':           '{n} configurado(s) ✓',
+    'github.label':            'GitHub',
+    'github.repos.label':      'Repositórios',
+    'github.repos.hint':       'Formato: <code>owner/repo</code> — pressione Enter ou vírgula para adicionar. Cole uma lista separada por vírgulas para adicionar vários.',
+    'github.repos.placeholder':'ex: torvalds/linux',
+    'github.token.label':      'Token de Acesso Pessoal',
+    'github.token.hint':       'Aumenta o limite de <strong>60</strong> para <strong>5.000</strong> req/hora. Sem escopos necessários para repositórios públicos.',
+    'gitlab.label':            'GitLab',
+    'gitlab.repos.label':      'Repositórios',
+    'gitlab.repos.hint':       'Formato: <code>owner/repo</code> — pressione Enter ou vírgula para adicionar.',
+    'gitlab.repos.placeholder':'ex: gitlab-org/gitlab',
+    'gitlab.token.label':      'Token de Acesso Pessoal',
+    'gitlab.token.hint':       'Obrigatório para repositórios privados. Crie em Configurações → Tokens de Acesso.',
+    'pypi.label':              'PyPI',
+    'pypi.packages.label':     'Pacotes',
+    'pypi.packages.hint':      'Nomes dos pacotes, ex: <code>requests</code>, <code>django</code>.',
+    'pypi.packages.placeholder':'ex: requests',
+    'docker.label':            'Docker Hub',
+    'docker.images.label':     'Imagens',
+    'docker.images.hint':      '<code>nginx</code> (oficial) ou <code>user/image</code>. Apenas tags versionadas (ex: 1.0.0) são rastreadas.',
+    'docker.images.placeholder':'ex: nginx',
+    'docker.token.label':      'Token de Acesso',
+    'docker.token.hint':       'Obrigatório para imagens privadas. Gere em hub.docker.com → Configurações de Conta → Segurança.',
+    'npm.label':               'npm',
+    'npm.packages.label':      'Pacotes',
+    'npm.packages.hint':       'Ex: <code>express</code> ou com escopo <code>@scope/pacote</code>.',
+    'npm.packages.placeholder':'ex: express',
+    'npm.token.label':         'Token de Acesso',
+    'npm.token.hint':          'Obrigatório para pacotes privados. Gere em npmjs.com → Tokens de Acesso.',
+    'webhook.label':           'URL do Webhook do Google Chat',
+    'webhook.hint':            'No seu espaço do Google Chat: Configurações → Gerenciar webhooks → Adicionar webhook.',
+    'webhook.placeholder':     'https://chat.googleapis.com/v1/spaces/...',
+    'interval.label':          'Intervalo de Verificação',
+    'prerelease.label':        'Ignorar pré-lançamentos',
+    'prerelease.hint':         'Notificar apenas versões estáveis',
+    'timezone.label':          'Fuso horário',
+    'timezone.hint':           'Usado para exibir horários de lançamento nas notificações.',
+    'gitlaburl.label':         'URL do GitLab',
+    'gitlaburl.hint':          'Altere apenas para instâncias GitLab auto-hospedadas.',
+    'statefile.label':         'Caminho do Arquivo de Estado',
+    'statefile.hint':          'Onde persistir os IDs dos últimos lançamentos entre reinicializações.',
+    'btn.save':                'Salvar e Iniciar Aplicação',
+    'btn.saving':              'Salvando…',
+    'success.title':           'Configuração salva!',
+    'success.body':            'O Release Monitor está iniciando.<br>Você pode fechar esta aba.',
+    'reconfig.success.title':  'Configuração atualizada!',
+    'reconfig.success.body':   'Reinicie a aplicação para aplicar as novas configurações.',
+    'reconfig.back':           '← Voltar ao status',
+    'error.nosource':          'Configure pelo menos uma fonte para monitorar',
+    'error.nowebhook':         'A URL do webhook do Google Chat é obrigatória',
+    'error.ownerrepo':         'Use o formato owner/repo',
+    'error.save':              'Não foi possível salvar. Verifique o terminal.',
+  },
+  es: {
+    'page.title':              'Release Monitor — Configuración',
+    'header.subtitle':         'Configure fuentes y notificaciones',
+    'section.sources.hint':    'Configure al menos una fuente a continuación',
+    'section.notifications':   'Notificaciones',
+    'section.schedule':        'Programación',
+    'section.advanced':        'Configuración avanzada',
+    'common.optional':         'opcional',
+    'common.required':         'requerido',
+    'common.minutes':          'minutos',
+    'common.addanother':       'Agregar otro…',
+    'common.showauthentication': '+ Agregar autenticación',
+    'common.hideauthentication': '− Ocultar autenticación',
+    'badge.nosource':          '0 configurado',
+    'badge.sources':           '{n} configurado(s) ✓',
+    'github.label':            'GitHub',
+    'github.repos.label':      'Repositorios',
+    'github.repos.hint':       'Formato: <code>owner/repo</code> — presione Enter o coma para agregar. Pegue una lista separada por comas para agregar varios.',
+    'github.repos.placeholder':'ej: torvalds/linux',
+    'github.token.label':      'Token de Acceso Personal',
+    'github.token.hint':       'Aumenta el límite de <strong>60</strong> a <strong>5.000</strong> req/hora. No se necesitan alcances para repositorios públicos.',
+    'gitlab.label':            'GitLab',
+    'gitlab.repos.label':      'Repositorios',
+    'gitlab.repos.hint':       'Formato: <code>owner/repo</code> — presione Enter o coma para agregar.',
+    'gitlab.repos.placeholder':'ej: gitlab-org/gitlab',
+    'gitlab.token.label':      'Token de Acceso Personal',
+    'gitlab.token.hint':       'Requerido para repositorios privados. Créelo en Configuración → Tokens de Acceso.',
+    'pypi.label':              'PyPI',
+    'pypi.packages.label':     'Paquetes',
+    'pypi.packages.hint':      'Nombres de paquetes, ej: <code>requests</code>, <code>django</code>.',
+    'pypi.packages.placeholder':'ej: requests',
+    'docker.label':            'Docker Hub',
+    'docker.images.label':     'Imágenes',
+    'docker.images.hint':      '<code>nginx</code> (oficial) o <code>user/image</code>. Solo se rastrean etiquetas versionadas (ej: 1.0.0).',
+    'docker.images.placeholder':'ej: nginx',
+    'docker.token.label':      'Token de Acceso',
+    'docker.token.hint':       'Requerido para imágenes privadas. Genérelo en hub.docker.com → Configuración de Cuenta → Seguridad.',
+    'npm.label':               'npm',
+    'npm.packages.label':      'Paquetes',
+    'npm.packages.hint':       'Ej: <code>express</code> o con alcance <code>@scope/paquete</code>.',
+    'npm.packages.placeholder':'ej: express',
+    'npm.token.label':         'Token de Acceso',
+    'npm.token.hint':          'Requerido para paquetes privados. Genérelo en npmjs.com → Tokens de Acceso.',
+    'webhook.label':           'URL del Webhook de Google Chat',
+    'webhook.hint':            'En su espacio de Google Chat: Configuración → Administrar webhooks → Agregar webhook.',
+    'webhook.placeholder':     'https://chat.googleapis.com/v1/spaces/...',
+    'interval.label':          'Intervalo de Verificación',
+    'prerelease.label':        'Ignorar pre-lanzamientos',
+    'prerelease.hint':         'Notificar solo versiones estables',
+    'timezone.label':          'Zona horaria',
+    'timezone.hint':           'Usado para mostrar marcas de tiempo en las notificaciones.',
+    'gitlaburl.label':         'URL de GitLab',
+    'gitlaburl.hint':          'Cambie solo para instancias GitLab auto-hospedadas.',
+    'statefile.label':         'Ruta del Archivo de Estado',
+    'statefile.hint':          'Dónde persistir los IDs de los últimos lanzamientos entre reinicios.',
+    'btn.save':                'Guardar e Iniciar Aplicación',
+    'btn.saving':              'Guardando…',
+    'success.title':           '¡Configuración guardada!',
+    'success.body':            'Release Monitor está iniciando.<br>Puede cerrar esta pestaña.',
+    'reconfig.success.title':  '¡Configuración actualizada!',
+    'reconfig.success.body':   'Reinicie la aplicación para aplicar la nueva configuración.',
+    'reconfig.back':           '← Volver al estado',
+    'error.nosource':          'Configure al menos una fuente para monitorear',
+    'error.nowebhook':         'La URL del webhook de Google Chat es obligatoria',
+    'error.ownerrepo':         'Use el formato owner/repo',
+    'error.save':              'No se pudo guardar la configuración. Verifique la terminal.',
+  },
+};
 
-  // ── tag input factory ─────────────────────────────────────────────────────
-  function makeTagInput({ boxId, inputId, hiddenId, placeholder, altPlaceholder, requireSlash = false }) {
-    const items = [];
+let _lang = localStorage.getItem('rm-lang') || navigator.language.slice(0, 2);
+if (!TRANSLATIONS[_lang]) _lang = 'en';
 
-    function addTag(raw) {
-      const value = raw.trim().replace(/,+$/, '');
-      if (!value || items.includes(value)) return;
-      if (requireSlash && !value.includes('/')) {
-        markInvalid(boxId);
-        document.getElementById(inputId).placeholder = `"${value}" must be owner/repo`;
-        return;
-      }
-      items.push(value);
-      render();
-      document.getElementById(boxId).classList.remove('invalid');
-      document.getElementById(inputId).placeholder = altPlaceholder;
+function t(key) {
+  return (TRANSLATIONS[_lang] || TRANSLATIONS.en)[key] || key;
+}
+
+function applyLang(lang) {
+  _lang = lang;
+  localStorage.setItem('rm-lang', lang);
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t(el.dataset.i18n); if (v !== el.dataset.i18n) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = t(el.dataset.i18nHtml); if (v !== el.dataset.i18nHtml) el.innerHTML = v;
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const v = t(el.dataset.i18nPlaceholder); if (v !== el.dataset.i18nPlaceholder) el.placeholder = v;
+  });
+  document.querySelectorAll('[data-lang]').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+  document.title = t('page.title');
+  // Refresh auth toggle labels
+  document.querySelectorAll('.auth-toggle span[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  updateSourceCount();
+}
+
+// ── tag input factory ─────────────────────────────────────────────────────────
+function makeTagInput({ boxId, inputId, hiddenId, requireSlash = false }) {
+  const box   = document.getElementById(boxId);
+  const input = document.getElementById(inputId);
+  const items = [];
+
+  function getEmptyPlaceholder() {
+    const key = input.dataset.i18nPlaceholder;
+    return key ? t(key) : (input.placeholder || '');
+  }
+
+  function addTag(raw) {
+    const value = raw.trim().replace(/,+$/, '');
+    if (!value || items.includes(value)) return;
+    if (requireSlash && !value.includes('/')) {
+      markInvalid(boxId);
+      showFieldError(boxId + '-error');
+      return;
     }
+    hideFieldError(boxId + '-error');
+    items.push(value);
+    render();
+    box.classList.remove('invalid');
+    input.placeholder = t('common.addanother');
+    updateSourceCount();
+  }
 
-    function removeTag(i) {
-      items.splice(i, 1);
-      render();
-      if (!items.length) document.getElementById(inputId).placeholder = placeholder;
-    }
-    window['removeTag_' + boxId] = removeTag;
+  function removeTag(i) {
+    items.splice(i, 1);
+    render();
+    input.placeholder = items.length ? t('common.addanother') : getEmptyPlaceholder();
+    updateSourceCount();
+  }
+  window['removeTag_' + boxId] = removeTag;
 
-    function render() {
-      const box   = document.getElementById(boxId);
-      const input = document.getElementById(inputId);
-      box.querySelectorAll('.tag').forEach(t => t.remove());
-      items.forEach((r, i) => {
-        const el = document.createElement('span');
-        el.className = 'tag';
-        el.innerHTML = r + '<button class="tag-rm" type="button" onclick="removeTag_' + boxId + '(' + i + ')">×</button>';
-        box.insertBefore(el, input);
-      });
-      document.getElementById(hiddenId).value = items.join(',');
-    }
-
-    const input = document.getElementById(inputId);
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ',') {
-        e.preventDefault();
-        if (input.value.trim()) { addTag(input.value); input.value = ''; }
-      } else if (e.key === 'Backspace' && !input.value && items.length) {
-        removeTag(items.length - 1);
-      }
+  function render() {
+    box.querySelectorAll('.tag').forEach(el => el.remove());
+    items.forEach((r, i) => {
+      const el = document.createElement('span');
+      el.className = 'tag';
+      el.innerHTML = r + '<button class="tag-rm" type="button" onclick="removeTag_' + boxId + '(' + i + ')">×</button>';
+      box.insertBefore(el, input);
     });
-    input.addEventListener('paste', e => {
+    document.getElementById(hiddenId).value = items.join(',');
+  }
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ',') {
       e.preventDefault();
-      e.clipboardData.getData('text').split(/[,\n]+/).forEach(r => r.trim() && addTag(r.trim()));
-      input.value = '';
-    });
-    document.getElementById(boxId).addEventListener('click', () => input.focus());
-
-    return { addTag, items };
-  }
-
-  const ghTags     = makeTagInput({ boxId: 'tags-box',       inputId: 'repo-input',   hiddenId: 'repos-value',         placeholder: 'e.g. torvalds/linux',    altPlaceholder: 'Add another…', requireSlash: true  });
-  const glTags     = makeTagInput({ boxId: 'gl-tags-box',    inputId: 'gl-repo-input', hiddenId: 'gitlab-repos-value', placeholder: 'e.g. gitlab-org/gitlab', altPlaceholder: 'Add another…', requireSlash: true  });
-  const pypiTags   = makeTagInput({ boxId: 'pypi-tags-box',  inputId: 'pypi-input',   hiddenId: 'pypi-packages-value', placeholder: 'e.g. requests',          altPlaceholder: 'Add another…', requireSlash: false });
-  const dockerTags = makeTagInput({ boxId: 'docker-tags-box', inputId: 'docker-input', hiddenId: 'docker-images-value', placeholder: 'e.g. nginx',            altPlaceholder: 'Add another…', requireSlash: false });
-  const npmTags    = makeTagInput({ boxId: 'npm-tags-box',   inputId: 'npm-input',    hiddenId: 'npm-packages-value',  placeholder: 'e.g. express',           altPlaceholder: 'Add another…', requireSlash: false });
-
-  // ── init ──────────────────────────────────────────────────────────────────
-  function init() {
-    if (existing.GOOGLE_CHAT_WEBHOOK) document.getElementById('webhook').value       = existing.GOOGLE_CHAT_WEBHOOK;
-    if (existing.GITHUB_TOKEN)        document.getElementById('github-token').value  = existing.GITHUB_TOKEN;
-    if (existing.GITLAB_TOKEN)        document.getElementById('gitlab-token').value  = existing.GITLAB_TOKEN;
-    if (existing.GITLAB_URL)          document.getElementById('gitlab-url').value    = existing.GITLAB_URL;
-    if (existing.NPM_TOKEN)           document.getElementById('npm-token').value     = existing.NPM_TOKEN;
-    if (existing.DOCKER_HUB_TOKEN)    document.getElementById('dockerhub-token').value = existing.DOCKER_HUB_TOKEN;
-    if (existing.INTERVAL_MINUTES)    document.getElementById('interval').value      = existing.INTERVAL_MINUTES;
-    if (existing.TIMEZONE)            document.getElementById('timezone').value      = existing.TIMEZONE;
-    if (existing.STATE_FILE)          document.getElementById('state-file').value    = existing.STATE_FILE;
-    if (existing.IGNORE_PRERELEASE !== undefined) {
-      document.getElementById('toggle-prerelease').checked = existing.IGNORE_PRERELEASE !== 'false';
+      if (input.value.trim()) { addTag(input.value); input.value = ''; }
+    } else if (e.key === 'Backspace' && !input.value && items.length) {
+      removeTag(items.length - 1);
     }
-    if (existing.REPOS)          existing.REPOS.split(',').forEach(r => r.trim() && ghTags.addTag(r.trim()));
-    if (existing.GITLAB_REPOS)   existing.GITLAB_REPOS.split(',').forEach(r => r.trim() && glTags.addTag(r.trim()));
-    if (existing.PYPI_PACKAGES)  existing.PYPI_PACKAGES.split(',').forEach(p => p.trim() && pypiTags.addTag(p.trim()));
-    if (existing.DOCKER_IMAGES)  existing.DOCKER_IMAGES.split(',').forEach(i => i.trim() && dockerTags.addTag(i.trim()));
-    if (existing.NPM_PACKAGES)   existing.NPM_PACKAGES.split(',').forEach(p => p.trim() && npmTags.addTag(p.trim()));
-  }
+  });
+  input.addEventListener('paste', e => {
+    e.preventDefault();
+    e.clipboardData.getData('text').split(/[,\n]+/).forEach(r => r.trim() && addTag(r.trim()));
+    input.value = '';
+  });
+  box.addEventListener('click', () => input.focus());
 
-  // ── helpers ───────────────────────────────────────────────────────────────
-  function toggleAdv() {
-    const content = document.getElementById('adv-content');
-    const arrow   = document.getElementById('adv-arrow');
-    content.classList.toggle('open');
-    arrow.classList.toggle('open');
-  }
+  return { addTag, items };
+}
 
-  function togglePw(id, btn) {
+// ── helpers ───────────────────────────────────────────────────────────────────
+const existing = __EXISTING__;
+const mode     = "__MODE__";
+
+function markInvalid(id) {
+  const el = document.getElementById(id);
+  el.classList.add('invalid');
+  setTimeout(() => el.classList.remove('invalid'), 2500);
+}
+
+function showFieldError(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = t(el.dataset.i18n || 'error.ownerrepo');
+  el.style.display = 'block';
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.style.display = 'none'; }, 3000);
+}
+
+function hideFieldError(id) {
+  const el = document.getElementById(id);
+  if (el) { el.style.display = 'none'; clearTimeout(el._t); }
+}
+
+function updateSourceCount() {
+  const filled = ['repos-value','gitlab-repos-value','pypi-packages-value','docker-images-value','npm-packages-value']
+    .filter(id => (document.getElementById(id)?.value || '').trim()).length;
+  const badge = document.getElementById('source-count-badge');
+  if (!badge) return;
+  if (filled === 0) {
+    badge.textContent = t('badge.nosource');
+    badge.classList.remove('has-sources');
+  } else {
+    badge.textContent = t('badge.sources').replace('{n}', filled);
+    badge.classList.add('has-sources');
+  }
+}
+
+function toggleAdv() {
+  document.getElementById('adv-content').classList.toggle('open');
+  document.getElementById('adv-arrow').classList.toggle('open');
+}
+
+function togglePw(id, btn) {
+  const el = document.getElementById(id);
+  el.type = el.type === 'password' ? 'text' : 'password';
+  btn.style.opacity = el.type === 'text' ? '1' : '0.5';
+}
+
+function toggleAuth(fieldsId, btnId) {
+  const fields = document.getElementById(fieldsId);
+  const btn    = document.getElementById(btnId);
+  const open   = fields.classList.toggle('open');
+  const span   = btn.querySelector('span[data-i18n]');
+  if (span) {
+    span.dataset.i18n = open ? 'common.hideauthentication' : 'common.showauthentication';
+    span.textContent  = t(span.dataset.i18n);
+  }
+}
+
+function openAuth(fieldsId, btnId) {
+  const fields = document.getElementById(fieldsId);
+  if (fields && !fields.classList.contains('open')) toggleAuth(fieldsId, btnId);
+}
+
+// ── wire up tag inputs ────────────────────────────────────────────────────────
+const ghTags     = makeTagInput({ boxId: 'tags-box',        inputId: 'repo-input',    hiddenId: 'repos-value',         requireSlash: true  });
+const glTags     = makeTagInput({ boxId: 'gl-tags-box',     inputId: 'gl-repo-input', hiddenId: 'gitlab-repos-value',  requireSlash: true  });
+const pypiTags   = makeTagInput({ boxId: 'pypi-tags-box',   inputId: 'pypi-input',    hiddenId: 'pypi-packages-value', requireSlash: false });
+const dockerTags = makeTagInput({ boxId: 'docker-tags-box', inputId: 'docker-input',  hiddenId: 'docker-images-value', requireSlash: false });
+const npmTags    = makeTagInput({ boxId: 'npm-tags-box',    inputId: 'npm-input',     hiddenId: 'npm-packages-value',  requireSlash: false });
+
+// ── init ──────────────────────────────────────────────────────────────────────
+function init() {
+  if (existing.GOOGLE_CHAT_WEBHOOK) document.getElementById('webhook').value        = existing.GOOGLE_CHAT_WEBHOOK;
+  if (existing.GITLAB_URL)          document.getElementById('gitlab-url').value     = existing.GITLAB_URL;
+  if (existing.INTERVAL_MINUTES)    document.getElementById('interval').value       = existing.INTERVAL_MINUTES;
+  if (existing.TIMEZONE)            document.getElementById('timezone').value       = existing.TIMEZONE;
+  if (existing.STATE_FILE)          document.getElementById('state-file').value     = existing.STATE_FILE;
+  if (existing.IGNORE_PRERELEASE !== undefined) {
+    document.getElementById('toggle-prerelease').checked = existing.IGNORE_PRERELEASE !== 'false';
+  }
+  if (existing.REPOS)          existing.REPOS.split(',').forEach(r => r.trim() && ghTags.addTag(r.trim()));
+  if (existing.GITLAB_REPOS)   existing.GITLAB_REPOS.split(',').forEach(r => r.trim() && glTags.addTag(r.trim()));
+  if (existing.PYPI_PACKAGES)  existing.PYPI_PACKAGES.split(',').forEach(p => p.trim() && pypiTags.addTag(p.trim()));
+  if (existing.DOCKER_IMAGES)  existing.DOCKER_IMAGES.split(',').forEach(i => i.trim() && dockerTags.addTag(i.trim()));
+  if (existing.NPM_PACKAGES)   existing.NPM_PACKAGES.split(',').forEach(p => p.trim() && npmTags.addTag(p.trim()));
+
+  if (existing.GITHUB_TOKEN)     { document.getElementById('github-token').value    = existing.GITHUB_TOKEN;     openAuth('auth-github', 'auth-toggle-github'); }
+  if (existing.GITLAB_TOKEN)     { document.getElementById('gitlab-token').value    = existing.GITLAB_TOKEN;     openAuth('auth-gitlab', 'auth-toggle-gitlab'); }
+  if (existing.DOCKER_HUB_TOKEN) { document.getElementById('dockerhub-token').value = existing.DOCKER_HUB_TOKEN; openAuth('auth-docker', 'auth-toggle-docker'); }
+  if (existing.NPM_TOKEN)        { document.getElementById('npm-token').value       = existing.NPM_TOKEN;        openAuth('auth-npm',    'auth-toggle-npm');    }
+}
+
+// ── save ──────────────────────────────────────────────────────────────────────
+async function save() {
+  // flush any pending typed value in each tag input
+  [['repo-input', ghTags], ['gl-repo-input', glTags], ['pypi-input', pypiTags],
+   ['docker-input', dockerTags], ['npm-input', npmTags]].forEach(([id, ctrl]) => {
     const el = document.getElementById(id);
-    el.type  = el.type === 'password' ? 'text' : 'password';
-    btn.style.opacity = el.type === 'text' ? '1' : '0.5';
+    if (el.value.trim()) { ctrl.addTag(el.value.trim()); el.value = ''; }
+  });
+
+  const reposVal   = document.getElementById('repos-value').value.trim();
+  const glRepos    = document.getElementById('gitlab-repos-value').value.trim();
+  const pypiPkgs   = document.getElementById('pypi-packages-value').value.trim();
+  const dockerImgs = document.getElementById('docker-images-value').value.trim();
+  const npmPkgs    = document.getElementById('npm-packages-value').value.trim();
+  const webhook    = document.getElementById('webhook').value.trim();
+
+  const errBanner = document.getElementById('validation-error');
+  errBanner.classList.remove('show');
+
+  let errors = [];
+  if (!reposVal && !glRepos && !pypiPkgs && !dockerImgs && !npmPkgs) {
+    ['tags-box','gl-tags-box','pypi-tags-box','docker-tags-box','npm-tags-box'].forEach(markInvalid);
+    errors.push(t('error.nosource'));
+  }
+  if (!webhook) { markInvalid('webhook'); errors.push(t('error.nowebhook')); }
+
+  if (errors.length) {
+    errBanner.textContent = errors.join(' · ');
+    errBanner.classList.add('show');
+    errBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
   }
 
-  function markInvalid(id) {
-    const el = document.getElementById(id);
-    el.classList.add('invalid');
-    setTimeout(() => el.classList.remove('invalid'), 2000);
-  }
+  const btn     = document.getElementById('submit-btn');
+  const label   = document.getElementById('btn-label');
+  const spinner = document.getElementById('btn-spinner');
+  btn.disabled      = true;
+  label.textContent = t('btn.saving');
+  spinner.style.display = 'block';
 
-  async function save() {
-    // flush any pending typed values
-    [
-      ['repo-input',   ghTags],
-      ['gl-repo-input', glTags],
-      ['pypi-input',   pypiTags],
-      ['docker-input', dockerTags],
-      ['npm-input',    npmTags],
-    ].forEach(([inputId, ctrl]) => {
-      const el = document.getElementById(inputId);
-      if (el.value.trim()) { ctrl.addTag(el.value.trim()); el.value = ''; }
+  const payload = {
+    REPOS: reposVal, GITLAB_REPOS: glRepos,
+    PYPI_PACKAGES: pypiPkgs, DOCKER_IMAGES: dockerImgs, NPM_PACKAGES: npmPkgs,
+    GOOGLE_CHAT_WEBHOOK: webhook,
+    GITHUB_TOKEN:     document.getElementById('github-token').value.trim(),
+    GITLAB_TOKEN:     document.getElementById('gitlab-token').value.trim(),
+    GITLAB_URL:       document.getElementById('gitlab-url').value.trim() || 'https://gitlab.com',
+    NPM_TOKEN:        document.getElementById('npm-token').value.trim(),
+    DOCKER_HUB_TOKEN: document.getElementById('dockerhub-token').value.trim(),
+    INTERVAL_MINUTES: document.getElementById('interval').value || '60',
+    IGNORE_PRERELEASE: document.getElementById('toggle-prerelease').checked ? 'true' : 'false',
+    TIMEZONE:         document.getElementById('timezone').value.trim() || 'UTC',
+    STATE_FILE:       document.getElementById('state-file').value.trim() || '/app/data/state.json',
+  };
+
+  try {
+    const res = await fetch('/save', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload),
     });
-
-    const reposVal   = document.getElementById('repos-value').value.trim();
-    const glRepos    = document.getElementById('gitlab-repos-value').value.trim();
-    const pypiPkgs   = document.getElementById('pypi-packages-value').value.trim();
-    const dockerImgs = document.getElementById('docker-images-value').value.trim();
-    const npmPkgs    = document.getElementById('npm-packages-value').value.trim();
-    const webhook    = document.getElementById('webhook').value.trim();
-    let valid = true;
-
-    if (!reposVal && !glRepos && !pypiPkgs && !dockerImgs && !npmPkgs) {
-      ['tags-box','gl-tags-box','pypi-tags-box','docker-tags-box','npm-tags-box'].forEach(markInvalid);
-      valid = false;
+    if (!res.ok) throw new Error('server error');
+    if (mode === 'reconfigure') {
+      document.getElementById('success-title').textContent = t('reconfig.success.title');
+      document.getElementById('success-body').innerHTML   = t('reconfig.success.body') +
+        `<br><a href="/" style="color:#3b82f6;font-size:13px;display:inline-block;margin-top:8px">${t('reconfig.back')}</a>`;
+    } else {
+      document.getElementById('success-title').textContent = t('success.title');
+      document.getElementById('success-body').innerHTML   = t('success.body');
     }
-    if (!webhook) { markInvalid('webhook'); valid = false; }
-    if (!valid) return;
-
-    const btn = document.getElementById('submit-btn');
-    btn.disabled    = true;
-    btn.textContent = 'Saving…';
-
-    const payload = {
-      REPOS:               reposVal,
-      GITLAB_REPOS:        glRepos,
-      PYPI_PACKAGES:       pypiPkgs,
-      DOCKER_IMAGES:       dockerImgs,
-      NPM_PACKAGES:        npmPkgs,
-      GOOGLE_CHAT_WEBHOOK: webhook,
-      GITHUB_TOKEN:        document.getElementById('github-token').value.trim(),
-      GITLAB_TOKEN:        document.getElementById('gitlab-token').value.trim(),
-      GITLAB_URL:          document.getElementById('gitlab-url').value.trim() || 'https://gitlab.com',
-      NPM_TOKEN:           document.getElementById('npm-token').value.trim(),
-      DOCKER_HUB_TOKEN:    document.getElementById('dockerhub-token').value.trim(),
-      INTERVAL_MINUTES:    document.getElementById('interval').value || '60',
-      IGNORE_PRERELEASE:   document.getElementById('toggle-prerelease').checked ? 'true' : 'false',
-      TIMEZONE:            document.getElementById('timezone').value.trim() || 'UTC',
-      STATE_FILE:          document.getElementById('state-file').value.trim() || '/app/data/state.json',
-    };
-
-    try {
-      const res = await fetch('/save', {
-        method:  'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify(payload),
-      });
-      if (!res.ok) throw new Error('server error');
-      if (mode === 'reconfigure') {
-        document.getElementById('success-title').textContent = 'Configuration updated!';
-        document.getElementById('success-body').innerHTML = 'Restart the app to apply the new settings.<br><a href="/" style="color:#3b82f6;font-size:13px">← Back to status</a>';
-      }
-      document.querySelector('.main-content').style.display = 'none';
-      document.getElementById('success').classList.add('show');
-    } catch {
-      btn.disabled    = false;
-      btn.textContent = 'Save & Start Application';
-      alert('Could not save configuration. Check the terminal for errors.');
-    }
+    document.querySelector('.main-content').style.display = 'none';
+    document.getElementById('success').classList.add('show');
+  } catch {
+    btn.disabled = false; label.textContent = t('btn.save'); spinner.style.display = 'none';
+    errBanner.textContent = t('error.save'); errBanner.classList.add('show');
   }
+}
 
-  init();
+// ── bootstrap ─────────────────────────────────────────────────────────────────
+applyLang(_lang);
+init();
 </script>
 </body>
 </html>
