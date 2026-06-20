@@ -1,0 +1,20 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="24" cy="24" r="24" fill="#0d1f3c"/>
+  <circle cx="24" cy="24" r="23" stroke="#2d4a7a" stroke-width="1" fill="none"/>
+
+  <!-- Tag body: rounded left, pointed right tip at (35, 24) -->
+  <path d="M9,17 L28,17 L35,24 L28,31 L9,31 Q5,31 5,24 Q5,17 9,17 Z"
+        fill="#132d55" stroke="#3b82f6" stroke-width="1.5"/>
+
+  <!-- Pin hole (the commit anchor) -->
+  <circle cx="10" cy="24" r="2" fill="#0d1f3c" stroke="#3b82f6" stroke-width="1.5"/>
+
+  <!-- Abstract version lines inside the tag -->
+  <line x1="16" y1="22" x2="27" y2="22" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" opacity="0.65"/>
+  <line x1="16" y1="26" x2="23" y2="26" stroke="#3b82f6" stroke-width="1"   stroke-linecap="round" opacity="0.4"/>
+
+  <!-- Signal waves emanating from the tag tip (35, 24) -->
+  <path d="M37.5,19.5 Q41.5,24 37.5,28.5" stroke="#22c55e" stroke-width="2"   stroke-linecap="round" fill="none"/>
+  <path d="M40.5,15.5 Q46,24 40.5,32.5"   stroke="#22c55e" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.45"/>
+</svg>

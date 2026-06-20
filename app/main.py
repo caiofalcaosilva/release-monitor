@@ -40,8 +40,8 @@ def handle_shutdown(signum, frame):
 
 
 def main():
-    validate_google_webhook()
     setup_logging()
+    validate_google_webhook()
 
     logging.info("Starting Release Monitor...")
     logging.info(f"Checking interval: {INTERVAL_MINUTES} minutes")

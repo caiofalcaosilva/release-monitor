@@ -48,7 +48,7 @@ install:
 
 .PHONY: dev
 dev:
-	python -m app.main
+	python -m app
 
 # ==============================
 # Maintenance

@@ -6,6 +6,7 @@ IGNORE_PRERELEASE = os.getenv("IGNORE_PRERELEASE", "true").lower() == "true"
 GOOGLE_CHAT_WEBHOOK = os.getenv("GOOGLE_CHAT_WEBHOOK")
 STATE_FILE = os.getenv("STATE_FILE", "/app/state.json")
 TIMEZONE = os.getenv("TIMEZONE", "UTC")
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
 
 if not REPOS:
