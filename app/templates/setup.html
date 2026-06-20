@@ -332,6 +332,27 @@
         </div>
       </div>
 
+      <!-- GitLab -->
+      <div class="section">
+        <div class="section-label"><span>🦊</span> GitLab</div>
+        <div class="field">
+          <label>GitLab Repositories <span class="badge optional">optional</span></label>
+          <div class="hint">Format: <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">owner/repo</code> — press Enter or comma to add.</div>
+          <div class="tags-box" id="gl-tags-box">
+            <input class="tag-input" id="gl-repo-input" type="text" placeholder="e.g. gitlab-org/gitlab" autocomplete="off" spellcheck="false">
+          </div>
+          <input type="hidden" id="gitlab-repos-value">
+        </div>
+        <div class="field">
+          <label>Personal Access Token <span class="badge optional">optional</span></label>
+          <div class="hint">Required for private repos. Create at Settings → Access Tokens.</div>
+          <div class="pw-wrap">
+            <input type="password" id="gitlab-token" placeholder="glpat-xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+            <button type="button" class="pw-eye" onclick="togglePw('gitlab-token', this)" title="Show/hide">👁</button>
+          </div>
+        </div>
+      </div>
+
       <!-- Schedule -->
       <div class="section">
         <div class="section-label"><span>⏰</span> Schedule</div>
@@ -380,6 +401,11 @@
             </datalist>
           </div>
           <div class="field">
+            <label>GitLab URL</label>
+            <div class="hint">Change only for self-hosted GitLab instances.</div>
+            <input type="text" id="gitlab-url" value="https://gitlab.com" spellcheck="false">
+          </div>
+          <div class="field">
             <label>State File Path</label>
             <div class="hint">Where to persist the last seen release IDs between restarts.</div>
             <input type="text" id="state-file" value="/app/data/state.json" spellcheck="false">
@@ -406,75 +432,84 @@
 <script>
   const existing = __EXISTING__;
   const mode = "__MODE__";
-  const repos = [];
 
+  // ── tag input factory ────────────────────────────────────────────────────────
+  function makeTagInput({ boxId, inputId, hiddenId, placeholder, altPlaceholder }) {
+    const items = [];
+
+    function addTag(raw) {
+      const value = raw.trim().replace(/,+$/, '');
+      if (!value || items.includes(value)) return;
+      if (!value.includes('/')) {
+        markInvalid(boxId);
+        document.getElementById(inputId).placeholder = `"${value}" must be owner/repo`;
+        return;
+      }
+      items.push(value);
+      render();
+      document.getElementById(boxId).classList.remove('invalid');
+      document.getElementById(inputId).placeholder = altPlaceholder;
+    }
+
+    function removeTag(i) {
+      items.splice(i, 1);
+      render();
+      if (!items.length) document.getElementById(inputId).placeholder = placeholder;
+    }
+    window['removeTag_' + boxId] = removeTag;
+
+    function render() {
+      const box   = document.getElementById(boxId);
+      const input = document.getElementById(inputId);
+      box.querySelectorAll('.tag').forEach(t => t.remove());
+      items.forEach((r, i) => {
+        const el = document.createElement('span');
+        el.className = 'tag';
+        el.innerHTML = r + '<button class="tag-rm" type="button" onclick="removeTag_' + boxId + '(' + i + ')">×</button>';
+        box.insertBefore(el, input);
+      });
+      document.getElementById(hiddenId).value = items.join(',');
+    }
+
+    const input = document.getElementById(inputId);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ',') {
+        e.preventDefault();
+        if (input.value.trim()) { addTag(input.value); input.value = ''; }
+      } else if (e.key === 'Backspace' && !input.value && items.length) {
+        removeTag(items.length - 1);
+      }
+    });
+    input.addEventListener('paste', e => {
+      e.preventDefault();
+      e.clipboardData.getData('text').split(/[,\n]+/).forEach(r => r.trim() && addTag(r.trim()));
+      input.value = '';
+    });
+    document.getElementById(boxId).addEventListener('click', () => input.focus());
+
+    return { addTag, items };
+  }
+
+  const ghTags = makeTagInput({ boxId: 'tags-box',    inputId: 'repo-input',    hiddenId: 'repos-value',        placeholder: 'e.g. torvalds/linux',     altPlaceholder: 'Add another…' });
+  const glTags = makeTagInput({ boxId: 'gl-tags-box', inputId: 'gl-repo-input', hiddenId: 'gitlab-repos-value', placeholder: 'e.g. gitlab-org/gitlab', altPlaceholder: 'Add another…' });
+
+  // ── init ─────────────────────────────────────────────────────────────────────
   function init() {
     if (existing.GOOGLE_CHAT_WEBHOOK) document.getElementById('webhook').value = existing.GOOGLE_CHAT_WEBHOOK;
     if (existing.GITHUB_TOKEN)        document.getElementById('github-token').value = existing.GITHUB_TOKEN;
+    if (existing.GITLAB_TOKEN)        document.getElementById('gitlab-token').value = existing.GITLAB_TOKEN;
+    if (existing.GITLAB_URL)          document.getElementById('gitlab-url').value = existing.GITLAB_URL;
     if (existing.INTERVAL_MINUTES)    document.getElementById('interval').value = existing.INTERVAL_MINUTES;
     if (existing.TIMEZONE)            document.getElementById('timezone').value = existing.TIMEZONE;
     if (existing.STATE_FILE)          document.getElementById('state-file').value = existing.STATE_FILE;
     if (existing.IGNORE_PRERELEASE !== undefined) {
       document.getElementById('toggle-prerelease').checked = existing.IGNORE_PRERELEASE !== 'false';
     }
-    if (existing.REPOS) {
-      existing.REPOS.split(',').forEach(r => r.trim() && addTag(r.trim()));
-    }
+    if (existing.REPOS)        existing.REPOS.split(',').forEach(r => r.trim() && ghTags.addTag(r.trim()));
+    if (existing.GITLAB_REPOS) existing.GITLAB_REPOS.split(',').forEach(r => r.trim() && glTags.addTag(r.trim()));
   }
 
-  function addTag(raw) {
-    const value = raw.trim().replace(/,+$/, '');
-    if (!value || repos.includes(value)) return;
-    if (!value.includes('/')) {
-      markInvalid('tags-box');
-      document.getElementById('repo-input').placeholder = `"${value}" must be owner/repo`;
-      return;
-    }
-    repos.push(value);
-    renderTags();
-    document.getElementById('tags-box').classList.remove('invalid');
-    document.getElementById('repo-input').placeholder = 'Add another…';
-  }
-
-  function removeTag(i) {
-    repos.splice(i, 1);
-    renderTags();
-    if (!repos.length) document.getElementById('repo-input').placeholder = 'e.g. torvalds/linux';
-  }
-
-  function renderTags() {
-    const box   = document.getElementById('tags-box');
-    const input = document.getElementById('repo-input');
-    box.querySelectorAll('.tag').forEach(t => t.remove());
-    repos.forEach((r, i) => {
-      const el = document.createElement('span');
-      el.className = 'tag';
-      el.innerHTML = r + '<button class="tag-rm" type="button" onclick="removeTag(' + i + ')">×</button>';
-      box.insertBefore(el, input);
-    });
-    document.getElementById('repos-value').value = repos.join(',');
-  }
-
-  const repoInput = document.getElementById('repo-input');
-
-  repoInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ',') {
-      e.preventDefault();
-      if (repoInput.value.trim()) { addTag(repoInput.value); repoInput.value = ''; }
-    } else if (e.key === 'Backspace' && !repoInput.value && repos.length) {
-      removeTag(repos.length - 1);
-    }
-  });
-
-  repoInput.addEventListener('paste', e => {
-    e.preventDefault();
-    const text = e.clipboardData.getData('text');
-    text.split(/[,\n]+/).forEach(r => r.trim() && addTag(r.trim()));
-    repoInput.value = '';
-  });
-
-  document.getElementById('tags-box').addEventListener('click', () => repoInput.focus());
-
+  // ── helpers ───────────────────────────────────────────────────────────────────
   function toggleAdv() {
     const content = document.getElementById('adv-content');
     const arrow   = document.getElementById('adv-arrow');
@@ -495,14 +530,19 @@
   }
 
   async function save() {
-    if (repoInput.value.trim()) { addTag(repoInput.value.trim()); repoInput.value = ''; }
+    // flush pending inputs
+    const ghInput = document.getElementById('repo-input');
+    const glInput = document.getElementById('gl-repo-input');
+    if (ghInput.value.trim()) { ghTags.addTag(ghInput.value.trim()); ghInput.value = ''; }
+    if (glInput.value.trim()) { glTags.addTag(glInput.value.trim()); glInput.value = ''; }
 
-    const reposVal = document.getElementById('repos-value').value.trim();
-    const webhook  = document.getElementById('webhook').value.trim();
+    const reposVal  = document.getElementById('repos-value').value.trim();
+    const glRepos   = document.getElementById('gitlab-repos-value').value.trim();
+    const webhook   = document.getElementById('webhook').value.trim();
     let valid = true;
 
-    if (!reposVal) { markInvalid('tags-box'); valid = false; }
-    if (!webhook)  { markInvalid('webhook');  valid = false; }
+    if (!reposVal && !glRepos) { markInvalid('tags-box'); markInvalid('gl-tags-box'); valid = false; }
+    if (!webhook)              { markInvalid('webhook');  valid = false; }
     if (!valid) return;
 
     const btn = document.getElementById('submit-btn');
@@ -511,8 +551,11 @@
 
     const payload = {
       REPOS:               reposVal,
+      GITLAB_REPOS:        glRepos,
       GOOGLE_CHAT_WEBHOOK: webhook,
       GITHUB_TOKEN:        document.getElementById('github-token').value.trim(),
+      GITLAB_TOKEN:        document.getElementById('gitlab-token').value.trim(),
+      GITLAB_URL:          document.getElementById('gitlab-url').value.trim() || 'https://gitlab.com',
       INTERVAL_MINUTES:    document.getElementById('interval').value || '60',
       IGNORE_PRERELEASE:   document.getElementById('toggle-prerelease').checked ? 'true' : 'false',
       TIMEZONE:            document.getElementById('timezone').value.trim() || 'UTC',
