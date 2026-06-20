@@ -39,10 +39,15 @@ def _write_env_file(data: dict):
         "",
         f"REPOS={data.get('REPOS', '')}",
         f"GITLAB_REPOS={data.get('GITLAB_REPOS', '')}",
+        f"PYPI_PACKAGES={data.get('PYPI_PACKAGES', '')}",
+        f"DOCKER_IMAGES={data.get('DOCKER_IMAGES', '')}",
+        f"NPM_PACKAGES={data.get('NPM_PACKAGES', '')}",
         f"GOOGLE_CHAT_WEBHOOK={data.get('GOOGLE_CHAT_WEBHOOK', '')}",
         f"GITHUB_TOKEN={data.get('GITHUB_TOKEN', '')}",
         f"GITLAB_TOKEN={data.get('GITLAB_TOKEN', '')}",
         f"GITLAB_URL={data.get('GITLAB_URL', 'https://gitlab.com')}",
+        f"NPM_TOKEN={data.get('NPM_TOKEN', '')}",
+        f"DOCKER_HUB_TOKEN={data.get('DOCKER_HUB_TOKEN', '')}",
         f"INTERVAL_MINUTES={data.get('INTERVAL_MINUTES', '60')}",
         f"IGNORE_PRERELEASE={data.get('IGNORE_PRERELEASE', 'true')}",
         f"TIMEZONE={data.get('TIMEZONE', 'UTC')}",
@@ -72,7 +77,11 @@ def _render_status() -> bytes:
 
 
 def _build_status_json() -> dict:
-    from app.config import REPOS, GITLAB_REPOS, GITLAB_URL, INTERVAL_MINUTES, IGNORE_PRERELEASE, TIMEZONE
+    from app.config import (
+        REPOS, GITLAB_REPOS, GITLAB_URL,
+        PYPI_PACKAGES, DOCKER_IMAGES, NPM_PACKAGES,
+        INTERVAL_MINUTES, IGNORE_PRERELEASE, TIMEZONE,
+    )
     from app.state import get_all_repos_state
 
     state = get_all_repos_state()
@@ -84,9 +93,9 @@ def _build_status_json() -> dict:
         last_checked = None
         if isinstance(entry, dict) and entry.get("tag_name"):
             last_release = {
-                "tag_name":    entry["tag_name"],
+                "tag_name":     entry["tag_name"],
                 "published_at": entry.get("published_at"),
-                "html_url":    entry.get("html_url"),
+                "html_url":     entry.get("html_url"),
             }
             last_checked = entry.get("last_checked")
         return {"name": repo, "url": url, "source": source,
@@ -97,6 +106,17 @@ def _build_status_json() -> dict:
 
     for repo in GITLAB_REPOS:
         repos_data.append(_entry(repo, f"gitlab:{repo}", f"{GITLAB_URL}/{repo}", "gitlab"))
+
+    for pkg in PYPI_PACKAGES:
+        repos_data.append(_entry(pkg, f"pypi:{pkg}", f"https://pypi.org/project/{pkg}/", "pypi"))
+
+    for img in DOCKER_IMAGES:
+        ns = "library" if "/" not in img else img.split("/", 1)[0]
+        img_name = img if "/" not in img else img.split("/", 1)[1]
+        repos_data.append(_entry(img, f"docker:{img}", f"https://hub.docker.com/r/{ns}/{img_name}", "docker"))
+
+    for pkg in NPM_PACKAGES:
+        repos_data.append(_entry(pkg, f"npm:{pkg}", f"https://www.npmjs.com/package/{pkg}", "npm"))
 
     return {
         "repos": repos_data,
@@ -109,8 +129,12 @@ def _build_status_json() -> dict:
 
 
 def needs_setup() -> bool:
-    has_repos = bool(os.getenv("REPOS") or os.getenv("GITLAB_REPOS"))
-    return not has_repos or not os.getenv("GOOGLE_CHAT_WEBHOOK")
+    has_source = bool(
+        os.getenv("REPOS") or os.getenv("GITLAB_REPOS") or
+        os.getenv("PYPI_PACKAGES") or os.getenv("DOCKER_IMAGES") or
+        os.getenv("NPM_PACKAGES")
+    )
+    return not has_source or not os.getenv("GOOGLE_CHAT_WEBHOOK")
 
 
 # ── HTTP handler ──────────────────────────────────────────────────────────────

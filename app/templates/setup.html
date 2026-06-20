@@ -126,7 +126,7 @@
     }
     .pw-eye:hover { color: #475569; }
 
-    /* ── Tags input (repos) ── */
+    /* ── Tags input ── */
     .tags-box {
       display: flex;
       flex-wrap: wrap;
@@ -296,32 +296,17 @@
   <div class="main-content">
     <div class="body">
 
-      <!-- Repositories -->
+      <!-- GitHub -->
       <div class="section">
-        <div class="section-label"><span>📦</span> Repositories</div>
+        <div class="section-label"><span>🐙</span> GitHub</div>
         <div class="field">
-          <label>GitHub Repositories <span class="badge required">required</span></label>
+          <label>Repositories <span class="badge optional">optional</span></label>
           <div class="hint">Format: <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">owner/repo</code> — press Enter or comma to add. Paste a comma-separated list to add multiple at once.</div>
           <div class="tags-box" id="tags-box">
             <input class="tag-input" id="repo-input" type="text" placeholder="e.g. torvalds/linux" autocomplete="off" spellcheck="false">
           </div>
           <input type="hidden" id="repos-value">
         </div>
-      </div>
-
-      <!-- Notifications -->
-      <div class="section">
-        <div class="section-label"><span>🔔</span> Notifications</div>
-        <div class="field">
-          <label>Google Chat Webhook URL <span class="badge required">required</span></label>
-          <div class="hint">In your Google Chat space: Settings → Manage webhooks → Add webhook.</div>
-          <input type="text" id="webhook" placeholder="https://chat.googleapis.com/v1/spaces/..." autocomplete="off" spellcheck="false">
-        </div>
-      </div>
-
-      <!-- GitHub -->
-      <div class="section">
-        <div class="section-label"><span>🐙</span> GitHub</div>
         <div class="field">
           <label>Personal Access Token <span class="badge optional">optional</span></label>
           <div class="hint">Raises the rate limit from <strong>60</strong> to <strong>5,000</strong> req/hour. No scopes needed for public repos.</div>
@@ -336,7 +321,7 @@
       <div class="section">
         <div class="section-label"><span>🦊</span> GitLab</div>
         <div class="field">
-          <label>GitLab Repositories <span class="badge optional">optional</span></label>
+          <label>Repositories <span class="badge optional">optional</span></label>
           <div class="hint">Format: <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">owner/repo</code> — press Enter or comma to add.</div>
           <div class="tags-box" id="gl-tags-box">
             <input class="tag-input" id="gl-repo-input" type="text" placeholder="e.g. gitlab-org/gitlab" autocomplete="off" spellcheck="false">
@@ -350,6 +335,71 @@
             <input type="password" id="gitlab-token" placeholder="glpat-xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
             <button type="button" class="pw-eye" onclick="togglePw('gitlab-token', this)" title="Show/hide">👁</button>
           </div>
+        </div>
+      </div>
+
+      <!-- PyPI -->
+      <div class="section">
+        <div class="section-label"><span>🐍</span> PyPI</div>
+        <div class="field">
+          <label>Packages <span class="badge optional">optional</span></label>
+          <div class="hint">Package names — press Enter or comma to add, e.g. <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">requests</code>, <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">django</code>.</div>
+          <div class="tags-box" id="pypi-tags-box">
+            <input class="tag-input" id="pypi-input" type="text" placeholder="e.g. requests" autocomplete="off" spellcheck="false">
+          </div>
+          <input type="hidden" id="pypi-packages-value">
+        </div>
+      </div>
+
+      <!-- Docker Hub -->
+      <div class="section">
+        <div class="section-label"><span>🐳</span> Docker Hub</div>
+        <div class="field">
+          <label>Images <span class="badge optional">optional</span></label>
+          <div class="hint">Image names — e.g. <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">nginx</code> (official) or <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">user/image</code>. Only versioned tags (e.g. 1.0.0) are tracked.</div>
+          <div class="tags-box" id="docker-tags-box">
+            <input class="tag-input" id="docker-input" type="text" placeholder="e.g. nginx" autocomplete="off" spellcheck="false">
+          </div>
+          <input type="hidden" id="docker-images-value">
+        </div>
+        <div class="field">
+          <label>Access Token <span class="badge optional">optional</span></label>
+          <div class="hint">Required for private images. Generate at hub.docker.com → Account Settings → Security.</div>
+          <div class="pw-wrap">
+            <input type="password" id="dockerhub-token" placeholder="dckr_pat_xxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+            <button type="button" class="pw-eye" onclick="togglePw('dockerhub-token', this)" title="Show/hide">👁</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- npm -->
+      <div class="section">
+        <div class="section-label"><span>📦</span> npm</div>
+        <div class="field">
+          <label>Packages <span class="badge optional">optional</span></label>
+          <div class="hint">Package names — e.g. <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">express</code> or scoped <code style="font-family:monospace;background:#f1f5f9;padding:1px 4px;border-radius:3px">@scope/package</code>.</div>
+          <div class="tags-box" id="npm-tags-box">
+            <input class="tag-input" id="npm-input" type="text" placeholder="e.g. express" autocomplete="off" spellcheck="false">
+          </div>
+          <input type="hidden" id="npm-packages-value">
+        </div>
+        <div class="field">
+          <label>Access Token <span class="badge optional">optional</span></label>
+          <div class="hint">Required for private packages. Generate at npmjs.com → Access Tokens.</div>
+          <div class="pw-wrap">
+            <input type="password" id="npm-token" placeholder="npm_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false">
+            <button type="button" class="pw-eye" onclick="togglePw('npm-token', this)" title="Show/hide">👁</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="section">
+        <div class="section-label"><span>🔔</span> Notifications</div>
+        <div class="field">
+          <label>Google Chat Webhook URL <span class="badge required">required</span></label>
+          <div class="hint">In your Google Chat space: Settings → Manage webhooks → Add webhook.</div>
+          <input type="text" id="webhook" placeholder="https://chat.googleapis.com/v1/spaces/..." autocomplete="off" spellcheck="false">
         </div>
       </div>
 
@@ -433,14 +483,14 @@
   const existing = __EXISTING__;
   const mode = "__MODE__";
 
-  // ── tag input factory ────────────────────────────────────────────────────────
-  function makeTagInput({ boxId, inputId, hiddenId, placeholder, altPlaceholder }) {
+  // ── tag input factory ─────────────────────────────────────────────────────
+  function makeTagInput({ boxId, inputId, hiddenId, placeholder, altPlaceholder, requireSlash = false }) {
     const items = [];
 
     function addTag(raw) {
       const value = raw.trim().replace(/,+$/, '');
       if (!value || items.includes(value)) return;
-      if (!value.includes('/')) {
+      if (requireSlash && !value.includes('/')) {
         markInvalid(boxId);
         document.getElementById(inputId).placeholder = `"${value}" must be owner/repo`;
         return;
@@ -490,26 +540,34 @@
     return { addTag, items };
   }
 
-  const ghTags = makeTagInput({ boxId: 'tags-box',    inputId: 'repo-input',    hiddenId: 'repos-value',        placeholder: 'e.g. torvalds/linux',     altPlaceholder: 'Add another…' });
-  const glTags = makeTagInput({ boxId: 'gl-tags-box', inputId: 'gl-repo-input', hiddenId: 'gitlab-repos-value', placeholder: 'e.g. gitlab-org/gitlab', altPlaceholder: 'Add another…' });
+  const ghTags     = makeTagInput({ boxId: 'tags-box',       inputId: 'repo-input',   hiddenId: 'repos-value',         placeholder: 'e.g. torvalds/linux',    altPlaceholder: 'Add another…', requireSlash: true  });
+  const glTags     = makeTagInput({ boxId: 'gl-tags-box',    inputId: 'gl-repo-input', hiddenId: 'gitlab-repos-value', placeholder: 'e.g. gitlab-org/gitlab', altPlaceholder: 'Add another…', requireSlash: true  });
+  const pypiTags   = makeTagInput({ boxId: 'pypi-tags-box',  inputId: 'pypi-input',   hiddenId: 'pypi-packages-value', placeholder: 'e.g. requests',          altPlaceholder: 'Add another…', requireSlash: false });
+  const dockerTags = makeTagInput({ boxId: 'docker-tags-box', inputId: 'docker-input', hiddenId: 'docker-images-value', placeholder: 'e.g. nginx',            altPlaceholder: 'Add another…', requireSlash: false });
+  const npmTags    = makeTagInput({ boxId: 'npm-tags-box',   inputId: 'npm-input',    hiddenId: 'npm-packages-value',  placeholder: 'e.g. express',           altPlaceholder: 'Add another…', requireSlash: false });
 
-  // ── init ─────────────────────────────────────────────────────────────────────
+  // ── init ──────────────────────────────────────────────────────────────────
   function init() {
-    if (existing.GOOGLE_CHAT_WEBHOOK) document.getElementById('webhook').value = existing.GOOGLE_CHAT_WEBHOOK;
-    if (existing.GITHUB_TOKEN)        document.getElementById('github-token').value = existing.GITHUB_TOKEN;
-    if (existing.GITLAB_TOKEN)        document.getElementById('gitlab-token').value = existing.GITLAB_TOKEN;
-    if (existing.GITLAB_URL)          document.getElementById('gitlab-url').value = existing.GITLAB_URL;
-    if (existing.INTERVAL_MINUTES)    document.getElementById('interval').value = existing.INTERVAL_MINUTES;
-    if (existing.TIMEZONE)            document.getElementById('timezone').value = existing.TIMEZONE;
-    if (existing.STATE_FILE)          document.getElementById('state-file').value = existing.STATE_FILE;
+    if (existing.GOOGLE_CHAT_WEBHOOK) document.getElementById('webhook').value       = existing.GOOGLE_CHAT_WEBHOOK;
+    if (existing.GITHUB_TOKEN)        document.getElementById('github-token').value  = existing.GITHUB_TOKEN;
+    if (existing.GITLAB_TOKEN)        document.getElementById('gitlab-token').value  = existing.GITLAB_TOKEN;
+    if (existing.GITLAB_URL)          document.getElementById('gitlab-url').value    = existing.GITLAB_URL;
+    if (existing.NPM_TOKEN)           document.getElementById('npm-token').value     = existing.NPM_TOKEN;
+    if (existing.DOCKER_HUB_TOKEN)    document.getElementById('dockerhub-token').value = existing.DOCKER_HUB_TOKEN;
+    if (existing.INTERVAL_MINUTES)    document.getElementById('interval').value      = existing.INTERVAL_MINUTES;
+    if (existing.TIMEZONE)            document.getElementById('timezone').value      = existing.TIMEZONE;
+    if (existing.STATE_FILE)          document.getElementById('state-file').value    = existing.STATE_FILE;
     if (existing.IGNORE_PRERELEASE !== undefined) {
       document.getElementById('toggle-prerelease').checked = existing.IGNORE_PRERELEASE !== 'false';
     }
-    if (existing.REPOS)        existing.REPOS.split(',').forEach(r => r.trim() && ghTags.addTag(r.trim()));
-    if (existing.GITLAB_REPOS) existing.GITLAB_REPOS.split(',').forEach(r => r.trim() && glTags.addTag(r.trim()));
+    if (existing.REPOS)          existing.REPOS.split(',').forEach(r => r.trim() && ghTags.addTag(r.trim()));
+    if (existing.GITLAB_REPOS)   existing.GITLAB_REPOS.split(',').forEach(r => r.trim() && glTags.addTag(r.trim()));
+    if (existing.PYPI_PACKAGES)  existing.PYPI_PACKAGES.split(',').forEach(p => p.trim() && pypiTags.addTag(p.trim()));
+    if (existing.DOCKER_IMAGES)  existing.DOCKER_IMAGES.split(',').forEach(i => i.trim() && dockerTags.addTag(i.trim()));
+    if (existing.NPM_PACKAGES)   existing.NPM_PACKAGES.split(',').forEach(p => p.trim() && npmTags.addTag(p.trim()));
   }
 
-  // ── helpers ───────────────────────────────────────────────────────────────────
+  // ── helpers ───────────────────────────────────────────────────────────────
   function toggleAdv() {
     const content = document.getElementById('adv-content');
     const arrow   = document.getElementById('adv-arrow');
@@ -530,19 +588,31 @@
   }
 
   async function save() {
-    // flush pending inputs
-    const ghInput = document.getElementById('repo-input');
-    const glInput = document.getElementById('gl-repo-input');
-    if (ghInput.value.trim()) { ghTags.addTag(ghInput.value.trim()); ghInput.value = ''; }
-    if (glInput.value.trim()) { glTags.addTag(glInput.value.trim()); glInput.value = ''; }
+    // flush any pending typed values
+    [
+      ['repo-input',   ghTags],
+      ['gl-repo-input', glTags],
+      ['pypi-input',   pypiTags],
+      ['docker-input', dockerTags],
+      ['npm-input',    npmTags],
+    ].forEach(([inputId, ctrl]) => {
+      const el = document.getElementById(inputId);
+      if (el.value.trim()) { ctrl.addTag(el.value.trim()); el.value = ''; }
+    });
 
-    const reposVal  = document.getElementById('repos-value').value.trim();
-    const glRepos   = document.getElementById('gitlab-repos-value').value.trim();
-    const webhook   = document.getElementById('webhook').value.trim();
+    const reposVal   = document.getElementById('repos-value').value.trim();
+    const glRepos    = document.getElementById('gitlab-repos-value').value.trim();
+    const pypiPkgs   = document.getElementById('pypi-packages-value').value.trim();
+    const dockerImgs = document.getElementById('docker-images-value').value.trim();
+    const npmPkgs    = document.getElementById('npm-packages-value').value.trim();
+    const webhook    = document.getElementById('webhook').value.trim();
     let valid = true;
 
-    if (!reposVal && !glRepos) { markInvalid('tags-box'); markInvalid('gl-tags-box'); valid = false; }
-    if (!webhook)              { markInvalid('webhook');  valid = false; }
+    if (!reposVal && !glRepos && !pypiPkgs && !dockerImgs && !npmPkgs) {
+      ['tags-box','gl-tags-box','pypi-tags-box','docker-tags-box','npm-tags-box'].forEach(markInvalid);
+      valid = false;
+    }
+    if (!webhook) { markInvalid('webhook'); valid = false; }
     if (!valid) return;
 
     const btn = document.getElementById('submit-btn');
@@ -552,10 +622,15 @@
     const payload = {
       REPOS:               reposVal,
       GITLAB_REPOS:        glRepos,
+      PYPI_PACKAGES:       pypiPkgs,
+      DOCKER_IMAGES:       dockerImgs,
+      NPM_PACKAGES:        npmPkgs,
       GOOGLE_CHAT_WEBHOOK: webhook,
       GITHUB_TOKEN:        document.getElementById('github-token').value.trim(),
       GITLAB_TOKEN:        document.getElementById('gitlab-token').value.trim(),
       GITLAB_URL:          document.getElementById('gitlab-url').value.trim() || 'https://gitlab.com',
+      NPM_TOKEN:           document.getElementById('npm-token').value.trim(),
+      DOCKER_HUB_TOKEN:    document.getElementById('dockerhub-token').value.trim(),
       INTERVAL_MINUTES:    document.getElementById('interval').value || '60',
       IGNORE_PRERELEASE:   document.getElementById('toggle-prerelease').checked ? 'true' : 'false',
       TIMEZONE:            document.getElementById('timezone').value.trim() || 'UTC',
